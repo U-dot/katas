@@ -127,12 +127,32 @@ describe("process input:", () => {
     //todo: process 4 input lines
 });
 
-describe("process input:", () => {
-    describe("dummy test:", () => {
-        it("dummy", () => {
-            let variable = 2;
-            let expected = 2;
+describe("scoring functions:", () => {
+    describe("Flush:", () => {
+        it("different", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:4, suit:'S'},
+                {value:4, suit:'S'},
+                {value:2, suit:'S'},
+                {value:4, suit:'S'},
+            ]
+            let variable = func.is_flush(hand);
+            let expected = false;
+            expect(variable).to.equal(expected);
+        });
+        it("same", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:4, suit:'S'},
+                {value:1, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+            ]
+            let variable = func.is_flush(hand);
+            let expected = true;
             expect(variable).to.equal(expected);
         });
     });
+    
 });

@@ -16,10 +16,7 @@ function card_input_to_card_object(card){
     return {value: card_value_to_number(card[0]), suit:card[1]}
 }
 function hand_input_to_card_array(hand){ 
-    for (let i=0; i<5; i++){
-        hand[i] = card_input_to_card_object(hand[i])
-    }
-    return hand
+    return hand.map((card) => card_input_to_card_object(card))
 }
 function process_poker_game_line_input(string){
     string = string.split(" ")
@@ -29,10 +26,23 @@ function process_poker_game_line_input(string){
     ]
 }
 
+//------------------->
+
+function is_flush(hand){
+    const first_suit = hand[0].suit
+    for(let i=1; i<5; i++){
+        if (hand[i].suit!= first_suit){
+            return false
+        }
+    }   
+    return true
+}
+
 export {
     card_value_to_number,
     card_input_to_card_object,
     hand_input_to_card_array,
-    process_poker_game_line_input
+    process_poker_game_line_input,
+    is_flush
 } ;
 

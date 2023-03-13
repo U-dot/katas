@@ -1,0 +1,13 @@
+process input: DONE
+scoring functions:
+    partial order scoring:
+                    StraightFlush       
+                    /           \
+                Straight       Flush 
+
+    High card
+    Two pairs
+    Pair
+    Three of a Kind
+    Full House
+    Four of a kind
