@@ -81,6 +81,17 @@ describe("process input:", () => {
             ];
             expect(variable).to.deep.equal(expected);
         });
+        it("hand example 5C 3H 4S 2C AH", () => {
+            let variable = func.hand_input_to_card_array(["5C", "3H", "4S", "2C", "AH"])
+            let expected = [
+                {value:2, suit:'C'},
+                {value:3, suit:'H'},
+                {value:4, suit:'S'},
+                {value:5, suit:'C'},
+                {value:14, suit:'H'},
+            ];
+            expect(variable).to.deep.equal(expected);
+        });
     });
     describe("process input line:", () => {
         it("Black: 2H 3D 5S 9C KD White: 2C 3H 4S 8C AH", () => {
@@ -108,17 +119,17 @@ describe("process input:", () => {
             let expected = [
                 [
                     {value:2, suit:'H'},
+                    {value:2, suit:'D'},
                     {value:4, suit:'S'},
                     {value:4, suit:'C'},
-                    {value:2, suit:'D'},
                     {value:4, suit:'H'},
                 ],
                 [
                     {value:2, suit:'S'},
-                    {value:8, suit:'S'},
-                    {value:14, suit:'S'},
-                    {value:12, suit:'S'},
                     {value:3, suit:'S'},
+                    {value:8, suit:'S'},
+                    {value:12, suit:'S'},
+                    {value:14, suit:'S'},
                 ]
             ];
                 expect(variable).to.deep.equal(expected);
@@ -150,6 +161,120 @@ describe("scoring functions:", () => {
                 {value:4, suit:'S'},
             ]
             let variable = func.is_flush(hand);
+            let expected = true;
+            expect(variable).to.equal(expected);
+        });
+    });
+    describe("straight:", () => {
+        it("not straight", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:4, suit:'S'},
+                {value:4, suit:'S'},
+                {value:2, suit:'S'},
+                {value:4, suit:'S'},
+            ]
+            let variable = func.is_straight(hand);
+            let expected = false;
+            expect(variable).to.equal(expected);
+        });
+        it("straight", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.is_straight(hand);
+            let expected = true;
+            expect(variable).to.equal(expected);
+        });
+        it("straight with A", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:14, suit:'S'},
+            ]
+            let variable = func.is_straight(hand);
+            let expected = true;
+            expect(variable).to.equal(expected);
+        });
+    });
+    describe("with A:", () => {
+        it("without", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:13, suit:'S'},
+            ]
+            let variable = func.has_an_A(hand);
+            let expected = false;
+            expect(variable).to.equal(expected);
+        });
+        it("with", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:14, suit:'S'},
+            ]
+            let variable = func.has_an_A(hand);
+            let expected = true;
+            expect(variable).to.equal(expected);
+        });
+    });
+    describe("is straight flush:", () => {
+        it("is not at all", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:13, suit:'S'},
+            ]
+            let variable = func.is_straight_flush(hand);
+            let expected = false;
+            expect(variable).to.equal(expected);
+        });
+        it("is not flush", () => {
+            let hand =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.is_straight_flush(hand);
+            let expected = false;
+            expect(variable).to.equal(expected);
+        });
+        it("is not straight", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:7, suit:'S'},
+            ]
+            let variable = func.is_straight_flush(hand);
+            let expected = false;
+            expect(variable).to.equal(expected);
+        });
+        it("is straight flush", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.is_straight_flush(hand);
             let expected = true;
             expect(variable).to.equal(expected);
         });
