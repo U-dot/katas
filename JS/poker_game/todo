@@ -36,5 +36,7 @@ poker_game:
     "
     rank_a = rank...()
     "
+    #rank_a depends on rank_b, so not static
+    #but type should be an object characteristic
     if type_a<type_b:
         print("White wins. - with:")
