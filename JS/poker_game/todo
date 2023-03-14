@@ -29,3 +29,12 @@ i need hand to know its rank by type and value
 -> call it twice: 
     switch highest requirement to return value
     swicth highest requirement to print
+
+poker_game:
+    [a,b] = process input
+    type_a = highest_requirement_fulfilled()
+    "
+    rank_a = rank...()
+    "
+    if type_a<type_b:
+        print("White wins. - with:")

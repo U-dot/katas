@@ -74,10 +74,22 @@ function is_straight_flush(hand){
 
 function highest_requirement_fulfilled(hand){
     switch(true){
-        case is_straight_flush(hand): return 
+        case is_straight_flush(hand): return 8;
+        case is_flush(hand): return 5;
+        case is_straight(hand): return 4;
     }
 }
 
+function straight_flush_rank(hand){
+    return hand[4].value;
+}
+
+function numeric_rank (hand){
+    let type = highest_requirement_fulfilled(hand);
+    switch(true){
+        case type == 8: return straight_flush_rank(hand)
+    }
+}
 
 export {
     card_value_to_number,
@@ -89,5 +101,7 @@ export {
     has_an_A,
     is_straight_flush,
     highest_requirement_fulfilled,
+    straight_flush_rank,
+    numeric_rank,
 } ;
 
