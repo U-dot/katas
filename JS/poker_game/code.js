@@ -70,6 +70,15 @@ function is_straight_flush(hand){
     return is_flush(hand) && is_straight(hand);
 }
 
+//----------------->
+
+function highest_requirement_fulfilled(hand){
+    switch(true){
+        case is_straight_flush(hand): return 
+    }
+}
+
+
 export {
     card_value_to_number,
     card_input_to_card_object,
@@ -79,5 +88,6 @@ export {
     is_straight,
     has_an_A,
     is_straight_flush,
+    highest_requirement_fulfilled,
 } ;
 

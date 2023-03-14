@@ -2,7 +2,7 @@ import { it, describe } from "mocha";
 import { expect } from "chai";
 import * as func from "./code";
 
-describe("process input:", () => {
+describe("dummy func:", () => {
     describe("dummy test:", () => {
         it("dummy", () => {
             let variable = 2;
@@ -10,6 +10,9 @@ describe("process input:", () => {
             expect(variable).to.equal(expected);
         });
     });
+});
+
+describe("process input:", () => {
     describe("convert card value to a number:", () => {
         it("2", () => {
             let variable = func.card_value_to_number("2");
@@ -280,4 +283,33 @@ describe("scoring functions:", () => {
         });
     });
     
+});
+
+describe("game logic:", () => {
+    describe("highest requirement fulfilled", () => {
+        it("is straight flush", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.highest_requirement_fulfilled(hand);
+            let expected = 8;
+            expect(variable).to.equal(expected);
+        });
+        it("is straight", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.highest_requirement_fulfilled(hand);
+            let expected = 4;
+            expect(variable).to.equal(expected);
+        });
+    });
 });

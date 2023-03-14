@@ -11,3 +11,21 @@ scoring functions:
     Three of a Kind
     Full House
     Four of a kind
+
+highest requirements:
+    8: StraightFlush   
+    7: Four of a kind   
+    6: Full House
+    5: Flush
+    4: Straight       
+    3: Three of a Kind
+    2: Two pairs
+    1: Pair
+    0: High card
+
+¿How to do game logic?
+i need hand to know its rank by type and value
+-> object
+-> call it twice: 
+    switch highest requirement to return value
+    swicth highest requirement to print
