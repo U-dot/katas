@@ -12,25 +12,32 @@ scoring functions:
     Full House
     Four of a kind
 
-highest requirements:
-    8: StraightFlush   
-    7: Four of a kind   
-    6: Full House
-    5: Flush
-    4: Straight       
-    3: Three of a Kind
-    2: Two pairs
-    1: Pair
-    0: High card
+highest requirements:    ranked by:
+    8: StraightFlush    |highest value
+    7: Four of a kind   |by quarter value
+    6: Full House       |by trio value
+    5: Flush            |highest card
+    4: Straight         |highest card
+    3: Three of a Kind  |by trio value 
+    2: Two pairs        |by highest pair value, by lower pair value, by extra card 
+    1: Pair             |by pair value, by iteratative highest
+    0: High card        |iteratative highest
 
 ¿How to do game logic?
 i need hand to know its rank by type and value
 -> object
 -> call it twice: 
     switch highest requirement to return value
-    swicth highest requirement to print
+    switch highest requirement to print
 
-poker_game:
+numberOfOcurrences()
+
+mostNumberOfOcurrences()
+
+Dictionary of ocurrences
+
+
+poker_game_logic:
     [a,b] = process input
     type_a = highest_requirement_fulfilled()
     "
@@ -38,3 +45,9 @@ poker_game:
     "
     if type_a<type_b:
         print("White wins. - with:")
+    return [0|| 1, type, rank]
+
+output(player, type, rank){}
+
+poker_game:
+    return output(poker_game_logic)

@@ -29,6 +29,10 @@ function process_poker_game_line_input(string){
 }
 
 //------------------->
+function is_pair(hand){
+    
+    return false;
+}
 
 function is_flush(hand){
     const first_suit = hand[0].suit;
@@ -70,6 +74,22 @@ function is_straight_flush(hand){
     return is_flush(hand) && is_straight(hand);
 }
 
+function number_of_ocurrences_dictionary(hand){
+    let dict = {}//hand.map((card) => {
+    //     if (typeof dict[card.value] === 'undefined'){
+    //         dict[card.value] = 0;
+    //     }
+    //     dict[card.value] += 1;
+    // });
+    for(let i=0; i<5;i++){
+        if (typeof dict[hand[i].value] === 'undefined'){
+            dict[hand[i].value] = 0;
+        }
+        dict[hand[i].value] += 1;
+    }
+    return dict;
+}
+
 //----------------->
 
 function highest_requirement_fulfilled(hand){
@@ -103,5 +123,7 @@ export {
     highest_requirement_fulfilled,
     straight_flush_rank,
     numeric_rank,
+    is_pair,
+    number_of_ocurrences_dictionary,
 } ;
 
