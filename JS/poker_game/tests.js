@@ -144,7 +144,7 @@ describe("scoring functions:", () => {
     describe("Pair:", () => {
         it("is not", () => {
             let hand =                [
-                {value:2, suit:'H'},
+                {value:8, suit:'H'},
                 {value:3, suit:'S'},
                 {value:7, suit:'S'},
                 {value:5, suit:'S'},
@@ -157,7 +157,7 @@ describe("scoring functions:", () => {
         it("is", () => {
             let hand =                
             [
-                {value:2, suit:'H'},
+                {value:6, suit:'H'},
                 {value:3, suit:'S'},
                 {value:7, suit:'S'},
                 {value:3, suit:'S'},
@@ -373,8 +373,20 @@ describe("game logic:", () => {
                 {value:5, suit:'S'},
                 {value:7, suit:'S'},
             ]
-            let variable = func.is_straight_flush(hand);
-            let expected = false;
+            let variable = func.highest_requirement_fulfilled(hand);
+            let expected = 5;
+            expect(variable).to.equal(expected);
+        });
+        it("is pair", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:2, suit:'H'},
+            ]
+            let variable = func.highest_requirement_fulfilled(hand);
+            let expected = 1;
             expect(variable).to.equal(expected);
         });
     });
