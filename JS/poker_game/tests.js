@@ -2,15 +2,7 @@ import { it, describe } from "mocha";
 import { expect } from "chai";
 import * as func from "./code";
 
-describe("dummy func:", () => {
-    describe("dummy test:", () => {
-        it("dummy", () => {
-            let variable = 2;
-            let expected = 2;
-            expect(variable).to.equal(expected);
-        });
-    });
-});
+
 
 describe("process input:", () => {
     describe("convert card value to a number:", () => {
@@ -389,8 +381,21 @@ describe("game logic:", () => {
             let expected = 1;
             expect(variable).to.equal(expected);
         });
+        it("is high card", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:7, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'H'},
+            ]
+            let variable =  func.highest_requirement_fulfilled(hand);
+            let expected = 0;
+            expect(variable).to.equal(expected);
+        });
     });
-    describe("straight flush rank:", () => {
+    describe("numeric rank each type:", () => {
+        describe("straight flush rank:", () => {
         it("2-6", () => {
             let hand =                [
                 {value:2, suit:'S'},
@@ -399,7 +404,7 @@ describe("game logic:", () => {
                 {value:5, suit:'S'},
                 {value:6, suit:'S'},
             ]
-            let variable = func.straight_flush_rank(hand);
+            let variable = func.highest_card(hand);
             let expected = 6;
             expect(variable).to.equal(expected);
         });
@@ -411,10 +416,52 @@ describe("game logic:", () => {
                 {value:13, suit:'H'},
                 {value:14, suit:'H'},
             ]
-            let variable = func.straight_flush_rank(hand);
+            let variable = func.highest_card(hand);
             let expected = 14;
             expect(variable).to.equal(expected);
         });
+        });
+        describe("flush rank:", () => {
+            it("6", () => {
+                let hand =                [
+                    {value:2, suit:'S'},
+                    {value:3, suit:'S'},
+                    {value:4, suit:'S'},
+                    {value:5, suit:'S'},
+                    {value:6, suit:'S'},
+                ]
+                let variable = func.highest_card(hand);
+                let expected = 6;
+                expect(variable).to.equal(expected);
+            });
+        });
+        describe("by x times repeated card value:", () => {
+            it("6 2 times", () => {
+                let hand =                [
+                    {value:2, suit:'S'},
+                    {value:2, suit:'S'},
+                    {value:6, suit:'S'},
+                    {value:6, suit:'S'},
+                    {value:6, suit:'S'},
+                ]
+                let variable = func.value_of_card_repeated_x_times(hand,2);
+                let expected = 2;
+                expect(variable).to.equal(expected);
+            });
+            it("6 3 times", () => {
+                let hand =                [
+                    {value:2, suit:'S'},
+                    {value:2, suit:'S'},
+                    {value:6, suit:'S'},
+                    {value:6, suit:'S'},
+                    {value:6, suit:'S'},
+                ]
+                let variable = func.value_of_card_repeated_x_times(hand,3);
+                let expected = 6;
+                expect(variable).to.equal(expected);
+            });
+        });
+            
     });
     describe("numeric_rank:", () => {
         it("straight flush rank", () => {
@@ -425,9 +472,173 @@ describe("game logic:", () => {
                 {value:5, suit:'S'},
                 {value:6, suit:'S'},
             ]
-            let variable = func.numeric_rank(hand);
+            let variable = func.numeric_rank(hand,func.highest_requirement_fulfilled(hand));
             let expected = 6;
             expect(variable).to.equal(expected);
+        });
+        it("flush rank", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:7, suit:'S'},
+            ]
+            let variable = func.numeric_rank(hand,func.highest_requirement_fulfilled(hand));
+            let expected = 7;
+            expect(variable).to.equal(expected);
+        });
+        it("straight rank", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'H'},
+            ]
+            let variable = func.numeric_rank(hand,func.highest_requirement_fulfilled(hand));
+            let expected = 6;
+            expect(variable).to.equal(expected);
+        });
+        it("pair rank", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:2, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'H'},
+            ]
+            let variable = func.numeric_rank(hand,func.highest_requirement_fulfilled(hand));
+            let expected = 2;
+            expect(variable).to.equal(expected);
+        });
+        it("high card", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+                {value:7, suit:'H'},
+            ]
+            let variable = func.numeric_rank(hand,func.highest_requirement_fulfilled(hand));
+            let expected = 7;
+            expect(variable).to.equal(expected);
+        });
+    });
+    describe("game logic function:", () => {
+        it("straight flush vs straight", () => {
+            let hand1 =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let hand2 =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.game_logic(hand1,hand2);
+            let expected = [0,8,6];// black or white, type, rank
+            expect(variable).to.deep.equal(expected);
+        });
+        it(" straight vs straight flush", () => {
+            let hand2 =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let hand1 =                [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.game_logic(hand1,hand2);
+            let expected = [1,8,6];// black or white, type, rank
+            expect(variable).to.deep.equal(expected);
+        });
+        it(" straight vs flush", () => {
+            let hand1 =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'H'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let hand2 =                [
+                {value:3, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let variable = func.game_logic(hand1,hand2);
+            let expected = [1,5,6];// black or white, type, rank
+            expect(variable).to.deep.equal(expected);
+        });
+        it(" straight vs straight flush with different rank", () => {
+            let hand1 =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'H'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let hand2 =                [
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+                {value:7, suit:'S'},
+            ]
+            let variable = func.game_logic(hand1,hand2);
+            let expected = [1,8,7];// black or white, type, rank
+            expect(variable).to.deep.equal(expected);
+        });
+        it(" pair vs pair with diffe pair value", () => {
+            let hand1 =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'H'},
+                {value:5, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let hand2 =                [
+                {value:3, suit:'S'},
+                {value:3, suit:'H'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+                {value:7, suit:'S'},
+            ]
+            let variable = func.game_logic(hand1,hand2);
+            let expected = [0,1,5];// black or white, type, rank
+            expect(variable).to.deep.equal(expected);
+        });
+        it(" pair vs pair with diff pair value", () => {
+            let hand2 =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'H'},
+                {value:5, suit:'S'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+            ]
+            let hand1 =                [
+                {value:3, suit:'S'},
+                {value:3, suit:'H'},
+                {value:5, suit:'S'},
+                {value:6, suit:'S'},
+                {value:7, suit:'S'},
+            ]
+            let variable = func.game_logic(hand1,hand2);
+            let expected = [1,1,5];// black or white, type, rank
+            expect(variable).to.deep.equal(expected);
         });
     });
 });

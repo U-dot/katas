@@ -98,19 +98,53 @@ function highest_requirement_fulfilled(hand){
         case is_flush(hand): return 5;
         case is_straight(hand): return 4;
         case is_pair(hand): return 1;
-        default: 0;
+        default: return 0;
     }
 }
+//----------------->
 
-function straight_flush_rank(hand){
+function highest_card(hand){
     return hand[4].value;
 }
 
-function numeric_rank (hand){
-    let type = highest_requirement_fulfilled(hand);
-    switch(true){
-        case type == 8: return straight_flush_rank(hand)
+function value_of_card_repeated_x_times(hand, x){
+    let ocurrences = number_of_ocurrences_dictionary(hand);
+    for (let value in ocurrences){
+        if (ocurrences[value] == x){
+            return Number(value);
+        }
     }
+    return false;
+}
+
+function numeric_rank (hand, type){
+    switch(true){
+        case type == 8: return highest_card(hand);
+        case type == 5: return highest_card(hand);
+        case type == 4: return highest_card(hand);
+        case type == 1: return value_of_card_repeated_x_times(hand,2);
+        case type == 0: return highest_card(hand);
+    }
+}
+
+function game_logic(hand_a,hand_b){
+    //if I did this again I would 
+    //make hand an object with the following aspects:
+    //cards, type, initial_rank, ocurrences
+    let type_a = highest_requirement_fulfilled(hand_a);
+    let type_b = highest_requirement_fulfilled(hand_b);
+    let rank_a = numeric_rank(hand_a,type_a);
+    let rank_b = numeric_rank(hand_b,type_b)
+    
+    if (type_a<type_b || (type_a==type_b && rank_a<rank_b)){
+        return [1,type_b,rank_b];
+    }
+    if (type_b<type_a || (type_a==type_b && rank_b<rank_a)){
+        return [0,type_a,rank_a];
+    }
+    //to implement  type_a==type_b && rank_b==rank_a
+    //something like:
+    //resolve_tie(hand_a,hand_b)
 }
 
 export {
@@ -123,9 +157,11 @@ export {
     has_an_A,
     is_straight_flush,
     highest_requirement_fulfilled,
-    straight_flush_rank,
     numeric_rank,
     is_pair,
     number_of_ocurrences_dictionary,
+    game_logic,
+    highest_card,
+    value_of_card_repeated_x_times,
 } ;
 
