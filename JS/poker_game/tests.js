@@ -138,10 +138,64 @@ describe("process input:", () => {
                 expect(variable).to.deep.equal(expected);
         });
     });
-    //todo: process 4 input lines
 });
 
 describe("scoring functions:", () => {
+    describe("Pair:", () => {
+        it("is not", () => {
+            let hand =                [
+                {value:8, suit:'H'},
+                {value:3, suit:'S'},
+                {value:7, suit:'S'},
+                {value:5, suit:'S'},
+                {value:14, suit:'S'},
+            ]
+            let variable = func.is_pair(hand);
+            let expected = false;
+            expect(variable).to.equal(expected);
+        });
+        it("is", () => {
+            let hand =                
+            [
+                {value:6, suit:'H'},
+                {value:3, suit:'S'},
+                {value:7, suit:'S'},
+                {value:3, suit:'S'},
+                {value:14, suit:'S'},
+            ]
+            let variable = func.is_pair(hand);
+            let expected = true;
+            expect(variable).to.equal(expected);
+        });
+    });
+    describe("dictionary of ocurrences",() =>{
+        it("one of each", () => {
+            let hand =                
+            [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:7, suit:'S'},
+                {value:5, suit:'S'},
+                {value:14, suit:'S'},
+            ]
+            let variable = func.number_of_ocurrences_dictionary(hand);
+            let expected = {2:1,3:1,5:1,7:1,14:1};
+            expect(variable).to.deep.equal(expected);
+        });
+        it("a pair", () => {
+            let hand =                
+            [
+                {value:2, suit:'H'},
+                {value:3, suit:'S'},
+                {value:7, suit:'S'},
+                {value:3, suit:'S'},
+                {value:14, suit:'S'},
+            ]
+            let variable = func.number_of_ocurrences_dictionary(hand);
+            let expected = {2:1,3:2,7:1,14:1};
+            expect(variable).to.deep.equal(expected);
+        });
+    });
     describe("Flush:", () => {
         it("different", () => {
             let hand =                [
@@ -311,7 +365,7 @@ describe("game logic:", () => {
             let expected = 4;
             expect(variable).to.equal(expected);
         });
-        it("is flush but not straight", () => {
+        it("is flush", () => {
             let hand =                [
                 {value:2, suit:'S'},
                 {value:3, suit:'S'},
@@ -319,8 +373,20 @@ describe("game logic:", () => {
                 {value:5, suit:'S'},
                 {value:7, suit:'S'},
             ]
-            let variable = func.is_straight_flush(hand);
-            let expected = false;
+            let variable = func.highest_requirement_fulfilled(hand);
+            let expected = 5;
+            expect(variable).to.equal(expected);
+        });
+        it("is pair", () => {
+            let hand =                [
+                {value:2, suit:'S'},
+                {value:3, suit:'S'},
+                {value:4, suit:'S'},
+                {value:5, suit:'S'},
+                {value:2, suit:'H'},
+            ]
+            let variable = func.highest_requirement_fulfilled(hand);
+            let expected = 1;
             expect(variable).to.equal(expected);
         });
     });

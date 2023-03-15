@@ -29,6 +29,15 @@ function process_poker_game_line_input(string){
 }
 
 //------------------->
+function is_pair(hand){
+    let ocurrences = number_of_ocurrences_dictionary(hand);
+    for (let value in ocurrences){
+        if (ocurrences[value] == 2){
+            return true;
+        }
+    }
+    return false;
+}
 
 function is_flush(hand){
     const first_suit = hand[0].suit;
@@ -70,6 +79,17 @@ function is_straight_flush(hand){
     return is_flush(hand) && is_straight(hand);
 }
 
+function number_of_ocurrences_dictionary(hand){
+    let ocurrences = {} 
+    hand.map((card) => {
+        if (typeof ocurrences[card.value] === 'undefined'){
+            ocurrences[card.value] = 0;
+        }  
+        ocurrences[card.value] += 1;
+    });
+    return ocurrences;
+}
+
 //----------------->
 
 function highest_requirement_fulfilled(hand){
@@ -77,6 +97,8 @@ function highest_requirement_fulfilled(hand){
         case is_straight_flush(hand): return 8;
         case is_flush(hand): return 5;
         case is_straight(hand): return 4;
+        case is_pair(hand): return 1;
+        default: 0;
     }
 }
 
@@ -103,5 +125,7 @@ export {
     highest_requirement_fulfilled,
     straight_flush_rank,
     numeric_rank,
+    is_pair,
+    number_of_ocurrences_dictionary,
 } ;
 
