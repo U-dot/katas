@@ -142,9 +142,58 @@ function game_logic(hand_a,hand_b){
     if (type_b<type_a || (type_a==type_b && rank_b<rank_a)){
         return [0,type_a,rank_a];
     }
+
     //to implement  type_a==type_b && rank_b==rank_a
     //something like:
     //resolve_tie(hand_a,hand_b)
+    return false;
+}
+
+function output_arr(arr){
+    if(arr==false){
+        return false;
+    }
+    return [
+        player_name(arr[0]),
+        hand_type_name(arr[1]),
+        card_name(arr[2])
+    ];
+}
+function player_name(num){
+    switch(true){
+        case num == 0: return "Black";
+        case num == 1: return "White";
+    }
+}
+function hand_type_name(num){
+    switch(true){
+        case num == 8: return "straight flush";
+        case num == 5: return "flush";
+        case num == 4: return "straight";
+        case num == 1: return "pair";
+        case num == 0: return "high card";
+    }
+}
+function card_name(num){
+    switch(true){
+        case num == 11: return "Joker";
+        case num == 12: return "Queen";
+        case num == 13: return "King";
+        case num == 14: return "Ace";
+        default: return String(num);
+    }
+}
+function output(arr){
+    let ans = output_arr(arr)
+    if (ans == false){
+        return "Tie."
+    }
+    return ans[0]+" wins. - with "+ans[1]+": "+ans[2];
+}
+function poker_game(input){
+    let hands = process_poker_game_line_input(input);
+    let result = game_logic(hands[0], hands[1]);
+    return output(result)
 }
 
 export {
@@ -163,5 +212,11 @@ export {
     game_logic,
     highest_card,
     value_of_card_repeated_x_times,
+    output_arr,
+    player_name,
+    hand_type_name,
+    card_name,
+    output,
+    poker_game,
 } ;
 
