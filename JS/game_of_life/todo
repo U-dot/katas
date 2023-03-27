@@ -1,0 +1,47 @@
+TO DO:
+-[ ] Process input
+-[ ] Game logic
+    -[ ] Apply rules on NEW copy of population
+            Do it with forEach or map, not for
+    -[ ] Check conditions of each cell
+         alone, overpopulated, ok, ideal
+    -[ ] Apply rules on each cell
+-[ ] Process ouput
+
+--------------------->
+
+Array:
+    + The population has small boundaries
+
+Dictionary:
+    - Is a new object on JS (or the other way around?)
+
+--------------------->
+Small example:
+Generation 1:
+3 3
+...
+.*.
+..*
+
+Generation 2:
+3 3
+...
+..*
+.*.
+
+--------------------->
+INPUT:
+Generation 1:
+4 8
+........
+....*...
+...**...
+........
+OUTPUT:
+Generation 1:
+4 8
+........
+...**...
+...**...
+........
