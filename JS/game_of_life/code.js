@@ -22,10 +22,14 @@ Number.prototype.between = function(min,max){
 
 export function neighbors(group, cell, number_of_groups, number_of_cells_per_group){
     let neighbors = []
-    for (let margin_x = -1; margin_x < 2; margin_x++) {
-        for (let margin_y = -1; margin_y < 2; margin_y++) {
-            if ((margin_x !== 0 || margin_y !== 0) && (group+margin_x).between(0,number_of_groups) && (cell+margin_y).between(0,number_of_cells_per_group)) {
-                neighbors.push([group + margin_x, cell + margin_y])
+    for (let neighbor_group = group-1; neighbor_group <= group+1; neighbor_group++) {
+        for (let neighbor_cell = cell-1; neighbor_cell <= cell+1; neighbor_cell++) {
+            if (
+                (neighbor_group!=group || neighbor_cell!=cell) && 
+                neighbor_group.between(0, number_of_groups) && 
+                neighbor_cell.between(0, number_of_cells_per_group)
+                ) {
+                neighbors.push([neighbor_group, neighbor_cell])
             }
         }
     }
