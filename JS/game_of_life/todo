@@ -1,11 +1,13 @@
 TO DO:
 -[ ] Process input
 -[ ] Game logic
-    -[ ] Apply rules on NEW copy of population
-            Do it with forEach or map, not for
-    -[ ] Check conditions of each cell
-         alone, overpopulated, ok, ideal
-    -[ ] Apply rules on each cell
+    -[X] get neighbours
+    -[X] get number of neighbours alive
+    -[ ] is cell gonna be alive next gen
+        -[ ] cell is lonely: <2
+        -[ ] cell is comfortable: 2 o 3
+        -[ ] cell can spawn: 3
+        -[ ] cell is overcrowded: >3
 -[ ] Process ouput
 
 --------------------->

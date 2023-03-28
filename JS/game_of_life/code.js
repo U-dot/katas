@@ -34,6 +34,11 @@ export function neighbors_alive_count(group, cell, population){
         )
     return number_of_alive_neighbours
 }
+
+export function is_lonely(group, cell, population){
+    return 2 > neighbors_alive_count(group,cell,population)
+}
+
 export function does_cell_live(group, cell, population){
-    return false;
+    return neighbors_alive_count(group,cell,population) === 3;
 }

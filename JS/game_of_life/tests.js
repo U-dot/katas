@@ -143,6 +143,15 @@ describe("Here we apply the rules of the game to the board:", () => {
             const neighbors_status = 1
             expect(neighbors_status).to.deep.equal(game_of_life.neighbors_alive_count(group,cell,population));
         });
+
+        it("Two alive neighbors", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[false,false,false],[true,false,false],[false,false,true]]
+            const neighbors = game_of_life.neighbors(group,cell,population.length, population[0].length)
+            const neighbors_status = 2
+            expect(neighbors_status).to.deep.equal(game_of_life.neighbors_alive_count(group,cell,population));
+        });
         it("All alive neighbors", () => {
             const group = 1;
             const cell = 1;
@@ -156,10 +165,46 @@ describe("Here we apply the rules of the game to the board:", () => {
         it("Lonely dead cell stays dead", () => {
             const group = 1;
             const cell = 1;
-            const population = [[false,false],[true,false]]
+            const population = [[true,false],[true,false]]
             const does_cell_live = game_of_life.does_cell_live(group,cell,population)
             const expected_does_cell_live = false;
             expect(expected_does_cell_live).to.deep.equal(does_cell_live);
+        });
+        it("Accompannied dead cell spawns", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[true,true],[true,false]]
+            const does_cell_live = game_of_life.does_cell_live(group,cell,population)
+            const expected_does_cell_live = true;
+            expect(expected_does_cell_live).to.deep.equal(does_cell_live);
+        });
+        it("Accompannied dead cell spawns", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[true,true],[true,false]]
+            const does_cell_live = game_of_life.does_cell_live(group,cell,population)
+            const expected_does_cell_live = true;
+            expect(expected_does_cell_live).to.equal(does_cell_live);
+        });
+    });
+    describe("Here we check if a cell is accompanied enough", () => {
+        it("Lonely cell", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[false,false,false],[true,false,false],[false,false,false]]
+            expect(true).to.equal(game_of_life.is_lonely(group,cell,population));
+        });
+        it("Accompanied cell", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[false,false,false],[true,false,false],[false,false,true]]
+            expect(false).to.equal(game_of_life.is_lonely(group,cell,population));
+        });
+        it("Completely lonely cell", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[false,false,false],[true,false,false],[false,false,false]]
+            expect(true).to.equal(game_of_life.is_lonely(group,cell,population));
         });
     });
 });
