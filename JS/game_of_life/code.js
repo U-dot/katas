@@ -16,11 +16,18 @@ export function is_cell_alone(group,cell,population){
     return true //for ([neighbour_group,neighbour_cell] in neighbors(group,cell,population.length)){
 }
 
-export function neighbors(group, cell, population_length){
-    // for (let position_x = -1; position_x<2; position_x++){
-    //     for (let position_y = 0; position_y < 2; position_y++) {
+Number.prototype.between = function(min,max){
+    return  min <= this && this < max;
+}
 
-    //     }
-    // }
-    return [[0,0][0,1][1,0]]
+export function neighbors(group, cell, number_of_groups, number_of_cells_per_group){
+    let neighbors = []
+    for (let margin_x = -1; margin_x < 2; margin_x++) {
+        for (let margin_y = -1; margin_y < 2; margin_y++) {
+            if ((margin_x !== 0 || margin_y !== 0) && (group+margin_x).between(0,number_of_groups) && (cell+margin_y).between(0,number_of_cells_per_group)) {
+                neighbors.push([group + margin_x, cell + margin_y])
+            }
+        }
+    }
+    return neighbors
 }

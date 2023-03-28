@@ -33,19 +33,53 @@ describe("Here we apply the rules of the game to the board:", () => {
         });
     });
     describe("Here we find the neighbouring cells position", () => {
-        it("This cell has three neighbors: 0 0, 0 1, 1 0", () => {
+        it("Here we get 7 neighbors", () => {
             const group = 1;
             const cell = 1;
-            const given_generation_lenght = 2;
-            const neighbors = [[0,0][0,1][1,0]]
-            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,given_generation_lenght));
+            const number_of_groups = 3;
+            const number_of_cells_per_group = 3;
+            const neighbors = [[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]];
+            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
         });
-        it("This cell has five neighbors: 0 0, 0 1, 1 0", () => {
+        it("Here we get 7 neighbors from different cell", () => {
+            const group = 2;
+            const cell = 1;
+            const number_of_groups = 4;
+            const number_of_cells_per_group = 3;
+            const neighbors = [[1,0],[1,1],[1,2],[2,0],[2,2],[3,0],[3,1],[3,2]];
+            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
+        });
+        it("Here we get 5 neighbors from cell too far down", () => {
+            const group = 2;
+            const cell = 1;
+            const number_of_groups = 3;
+            const number_of_cells_per_group = 4;
+            const neighbors = [[1,0],[1,1],[1,2],[2,0],[2,2]];
+            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
+        });
+        it("Here we get 5 neighbors from cell too far up", () => {
+            const group = 0;
+            const cell = 1;
+            const number_of_groups = 3;
+            const number_of_cells_per_group = 4;
+            const neighbors = [[0,0],[0,2],[1,0],[1,1],[1,2]];
+            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
+        });
+        it("Here we get 3 neighbors from cell too far up and left", () => {
+            const group = 0;
+            const cell = 0;
+            const number_of_groups = 3;
+            const number_of_cells_per_group = 3;
+            const neighbors = [[0,1],[1,0],[1,1]];
+            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
+        });
+        it("Here we get 3 neighbors from cell too far down and right", () => {
             const group = 1;
             const cell = 1;
-            const given_generation_lenght = 2;
-            const neighbors = [[0,0][0,1][1,0]]
-            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,given_generation_lenght));
+            const number_of_groups = 2;
+            const number_of_cells_per_group = 2;
+            const neighbors = [[0,0],[0,1],[1,0]];
+            expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
         });
     });
 });
