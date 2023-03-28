@@ -168,7 +168,7 @@ describe("Here we apply the rules of the game to the board:", () => {
             const population = [[true,false],[true,false]]
             expect(false).to.equal(game_of_life.does_cell_live(group,cell,population));
         });
-        it("Accompannied by 3, dead cell spawns", () => {
+        it("Dead cell can spawn", () => {
             const group = 1;
             const cell = 1;
             const population = [[true,true],[true,false]]
@@ -179,6 +179,22 @@ describe("Here we apply the rules of the game to the board:", () => {
             const cell = 1;
             const population = [[true,false],[true,true]]
             expect(true).to.equal(game_of_life.does_cell_live(group,cell,population));
+        });
+        it("Uncomfortable alive cell dies", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[true,false],[false,true]]
+            expect(false).to.equal(game_of_life.does_cell_live(group,cell,population));
+        });
+        it("Uncomfortable alive cell dies", () => {
+            const group = 0;
+            const cell = 1;
+            const population = [
+                [false,true,false],
+                [true,false,false],
+                [false,true,true]
+            ]
+            expect(false).to.equal(game_of_life.does_cell_live(group,cell,population));
         });
     });
     describe("Here we check if a cell is accompanied enough", () => {
@@ -216,6 +232,52 @@ describe("Here we apply the rules of the game to the board:", () => {
                 const population = [[true,false,true],[true,false,false],[false,false,false]]
                 expect(true).to.equal(game_of_life.can_spawn(group,cell,population));
             });
+        });
+    });
+    describe("Here we apply the rules to all the cells on the board:", () => {
+        it("Only dead cells -> Only dead cells", () => {
+            const given_generation = [[false,false],[false,false]];
+            const next_generation = [[false,false],[false,false]];
+            expect(next_generation).to.deep.equal(game_of_life.next_generation(given_generation));
+        });
+        it("3 alive cells in 3x3 stay the same", () => {
+            const given_generation = [
+                [false,true,false],
+                [true,true,false],
+                [false,false,false]
+            ]
+            const next_generation = [
+                [true,true,false],
+                [true,true,false],
+                [false,false,false]
+            ]
+            expect(next_generation).to.deep.equal(game_of_life.next_generation(given_generation));
+        });
+        it("1 alive cell dies", () => {
+            const given_generation = [
+                [false,true,false],
+                [false,false,false],
+                [false,false,false]
+            ]
+            const next_generation = [
+                [false,false,false],
+                [false,false,false],
+                [false,false,false]
+            ]
+            expect(next_generation).to.deep.equal(game_of_life.next_generation(given_generation));
+        });
+        it("4 alive cells in 3x3 change a lot", () => {
+            const given_generation = [
+                [false,true,false],
+                [true,true,true],
+                [false,false,false]
+            ]
+            const next_generation = [
+                [true,true,true],
+                [true,true,true],
+                [false,true,false]
+            ]
+            expect(next_generation).to.deep.equal(game_of_life.next_generation(given_generation));
         });
     });
 });

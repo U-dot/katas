@@ -50,4 +50,13 @@ export function can_spawn(group,cell,population){
     return 3 === neighbors_alive_count(group,cell,population)
 }
 
+export function next_generation(population){
+    let next_generation = JSON.parse(JSON.stringify(population))
+    for (let group=0;group<population.length;group++){ 
+        for (let cell=0;cell<population[0].length;cell++){
+            next_generation[group][cell] = does_cell_live(group,cell,population)
+        }
+    }
+    return next_generation
+}
 
