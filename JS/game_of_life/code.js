@@ -36,7 +36,15 @@ export function neighbors_alive_count(group, cell, population){
 }
 
 export function is_lonely(group, cell, population){
-    return 2 > neighbors_alive_count(group,cell,population)
+    return 2 > neighbors_alive_count(group,cell,population);
+}
+
+export function is_comfortable(group, cell, population){
+    return neighbors_alive_count(group,cell,population).in_range(2,4);
+}
+
+export function is_overcrowded(group, cell, population){
+    return 3 < neighbors_alive_count(group,cell,population)
 }
 
 export function does_cell_live(group, cell, population){

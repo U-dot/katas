@@ -4,8 +4,8 @@ TO DO:
     -[X] get neighbours
     -[X] get number of neighbours alive
     -[ ] is cell gonna be alive next gen
-        -[ ] cell is lonely: <2
-        -[ ] cell is comfortable: 2 o 3
+        -[X] cell is lonely: <2
+        -[X] cell is comfortable: 2 o 3
         -[ ] cell can spawn: 3
         -[ ] cell is overcrowded: >3
 -[ ] Process ouput

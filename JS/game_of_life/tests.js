@@ -188,23 +188,59 @@ describe("Here we apply the rules of the game to the board:", () => {
         });
     });
     describe("Here we check if a cell is accompanied enough", () => {
-        it("Lonely cell", () => {
-            const group = 1;
-            const cell = 1;
-            const population = [[false,false,false],[true,false,false],[false,false,false]]
-            expect(true).to.equal(game_of_life.is_lonely(group,cell,population));
+        describe("Here we check if a cell is lonely", () => {
+            it("Lonely cell", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[false,false,false],[true,false,false],[false,false,false]]
+                expect(true).to.equal(game_of_life.is_lonely(group,cell,population));
+            });
+            it("Accompanied cell", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[false,false,false],[true,false,false],[false,false,true]]
+                expect(false).to.equal(game_of_life.is_lonely(group,cell,population));
+            });
+            it("Completely lonely cell", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[false,false,false],[true,false,false],[false,false,false]]
+                expect(true).to.equal(game_of_life.is_lonely(group,cell,population));
+            });
         });
-        it("Accompanied cell", () => {
-            const group = 1;
-            const cell = 1;
-            const population = [[false,false,false],[true,false,false],[false,false,true]]
-            expect(false).to.equal(game_of_life.is_lonely(group,cell,population));
+        describe("Here we check if a cell is comfortable", () => {
+            it("Lonely cell is not", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[false,false,false],[true,false,false],[false,false,false]]
+                expect(false).to.equal(game_of_life.is_comfortable(group,cell,population));
+            });
+            it("Accompanied cell is", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[false,false,false],[true,false,false],[false,false,true]]
+                expect(true).to.equal(game_of_life.is_comfortable(group,cell,population));
+            });
+            it("Overaccompanied cell is not", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[true,true,false],[true,false,false],[false,false,true]]
+                expect(false).to.equal(game_of_life.is_comfortable(group,cell,population));
+            });
         });
-        it("Completely lonely cell", () => {
-            const group = 1;
-            const cell = 1;
-            const population = [[false,false,false],[true,false,false],[false,false,false]]
-            expect(true).to.equal(game_of_life.is_lonely(group,cell,population));
+        describe("Here we check if a cell is overcrowded", () => {
+            it("Accompanied cell is not", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[false,false,false],[true,false,false],[false,false,true]]
+                expect(false).to.equal(game_of_life.is_overcrowded(group,cell,population));
+            });
+            it("Overaccompanied cell is", () => {
+                const group = 1;
+                const cell = 1;
+                const population = [[true,true,false],[true,false,false],[false,false,true]]
+                expect(true).to.equal(game_of_life.is_overcrowded(group,cell,population));
+            });
         });
     });
 });
