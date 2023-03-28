@@ -13,40 +13,42 @@ describe("Dummy", () => {
 });
 
 describe("Here we apply the rules of the game to the board:", () => {
-    it("Only dead cells -> Only dead cells", () => {
-        const given_generation = [[false,false],[false,false]];
-        const next_generation = [[false,false],[false,false]];
-        expect(next_generation).to.deep.equal(game_of_life.next_generation(given_generation));
-    });
-    it("Only one alive cell -> Only dead cells", () => {
-        const given_generation = [[false,false],[false,true]];
-        const next_generation = [[false,false],[false,false]];
-        expect(next_generation).to.deep.equal(game_of_life.next_generation(given_generation));
-    });
-    describe("Here we check the conditions on each element", () => {
-        it("This cell has only one alive neighbor", () => {
-            const group = 1;
-            const cell = 1;
-            const given_generation = [[false,false],[false,true]];
-            const alone_cell = true;
-            expect(alone_cell).to.deep.equal(game_of_life.is_cell_alone(group,cell,given_generation));
-        });
-    });
     describe("Here we find the neighbouring cells position", () => {
-        it("Here we get 7 neighbors", () => {
+        it("Here we get 8 neighbors", () => {
             const group = 1;
             const cell = 1;
             const number_of_groups = 3;
             const number_of_cells_per_group = 3;
-            const neighbors = [[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]];
+            const neighbors = [
+                {group: 0, cell: 0},
+                {group: 0, cell: 1},
+                {group: 0, cell: 2},
+                {group: 1, cell: 0},
+                {group: 1, cell: 2},
+                {group: 2, cell: 0},
+                {group: 2, cell: 1},
+                {group: 2, cell: 2},
+            ];
+                //[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]];
             expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
         });
-        it("Here we get 7 neighbors from different cell", () => {
+        it("Here we get 8 neighbors from different cell", () => {
             const group = 2;
             const cell = 1;
             const number_of_groups = 4;
             const number_of_cells_per_group = 3;
-            const neighbors = [[1,0],[1,1],[1,2],[2,0],[2,2],[3,0],[3,1],[3,2]];
+            const neighbors = [
+                {group: 1, cell: 0},
+                {group: 1, cell: 1},
+                {group: 1, cell: 2},
+                {group: 2, cell: 0},
+                {group: 2, cell: 2},
+                {group: 3, cell: 0},
+                {group: 3, cell: 1},
+                {group: 3, cell: 2},
+
+            ]
+            //[[1,0],[1,1],[1,2],[2,0],[2,2],[3,0],[3,1],[3,2]];
             expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
         });
         it("Here we get 5 neighbors from cell too far down", () => {
@@ -54,7 +56,14 @@ describe("Here we apply the rules of the game to the board:", () => {
             const cell = 1;
             const number_of_groups = 3;
             const number_of_cells_per_group = 4;
-            const neighbors = [[1,0],[1,1],[1,2],[2,0],[2,2]];
+            const neighbors = [
+                {group: 1, cell: 0},
+                {group: 1, cell: 1},
+                {group: 1, cell: 2},
+                {group: 2, cell: 0},
+                {group: 2, cell: 2},
+            ]
+            //[[1,0],[1,1],[1,2],[2,0],[2,2]];
             expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
         });
         it("Here we get 5 neighbors from cell too far up", () => {
@@ -62,7 +71,14 @@ describe("Here we apply the rules of the game to the board:", () => {
             const cell = 1;
             const number_of_groups = 3;
             const number_of_cells_per_group = 4;
-            const neighbors = [[0,0],[0,2],[1,0],[1,1],[1,2]];
+            const neighbors = [
+                {group: 0, cell: 0},
+                {group: 0, cell: 2},
+                {group: 1, cell: 0},
+                {group: 1, cell: 1},
+                {group: 1, cell: 2},
+            ];
+            //[[0,0],[0,2],[1,0],[1,1],[1,2]];
             expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
         });
         it("Here we get 3 neighbors from cell too far up and left", () => {
@@ -70,7 +86,12 @@ describe("Here we apply the rules of the game to the board:", () => {
             const cell = 0;
             const number_of_groups = 3;
             const number_of_cells_per_group = 3;
-            const neighbors = [[0,1],[1,0],[1,1]];
+            const neighbors = [                
+                {group: 0, cell: 1},
+                {group: 1, cell: 0},
+                {group: 1, cell: 1},
+            ];
+                //[0,1],[1,0],[1,1]];
             expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
         });
         it("Here we get 3 neighbors from cell too far down and right", () => {
@@ -78,8 +99,67 @@ describe("Here we apply the rules of the game to the board:", () => {
             const cell = 1;
             const number_of_groups = 2;
             const number_of_cells_per_group = 2;
-            const neighbors = [[0,0],[0,1],[1,0]];
+            const neighbors = [                
+                {group: 0, cell: 0},
+                {group: 0, cell: 1},
+                {group: 1, cell: 0},
+            ];
+                //[0,0],[0,1],[1,0]];
             expect(neighbors).to.deep.equal(game_of_life.neighbors(group,cell,number_of_groups,number_of_cells_per_group));
+        });
+    });
+    describe("Here we check whether cell is alive or dead", () => {
+        it("Dead", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[true,false],[false,false]]
+            const cell_status = game_of_life.is_alive(group,cell,population)
+            const expected_cell_status = false;
+            expect(expected_cell_status).to.deep.equal(game_of_life.is_alive(group,cell, population));
+        });
+        it("Alive", () => {
+            const group = 0;
+            const cell = 0;
+            const population = [[true,false],[false,false]]
+            const cell_status = game_of_life.is_alive(group,cell,population)
+            const expected_cell_status = true;
+            expect(expected_cell_status).to.deep.equal(game_of_life.is_alive(group,cell, population));
+        });
+    });
+    describe("Here we find the status of the neighbors of a cell", () => {
+        it("All dead neighbors", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[false,false],[false,false]]
+            const neighbors = game_of_life.neighbors(group,cell,population.length, population[0].length)
+            const neighbors_status = 0
+            expect(neighbors_status).to.deep.equal(game_of_life.neighbors_alive_count(group,cell,population));
+        });
+        it("Only one alive neighbor", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[true,false],[false,false]]
+            const neighbors = game_of_life.neighbors(group,cell,population.length, population[0].length)
+            const neighbors_status = 1
+            expect(neighbors_status).to.deep.equal(game_of_life.neighbors_alive_count(group,cell,population));
+        });
+        it("All alive neighbors", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[true,true],[true,true]]
+            const neighbors = game_of_life.neighbors(group,cell,population.length, population[0].length)
+            const neighbors_status = 3
+            expect(neighbors_status).to.deep.equal(game_of_life.neighbors_alive_count(group,cell,population));
+        });
+    });
+    describe("Here we check if a cell dies or lives through next generation", () => {
+        it("Lonely dead cell stays dead", () => {
+            const group = 1;
+            const cell = 1;
+            const population = [[false,false],[true,false]]
+            const does_cell_live = game_of_life.does_cell_live(group,cell,population)
+            const expected_does_cell_live = false;
+            expect(expected_does_cell_live).to.deep.equal(does_cell_live);
         });
     });
 });

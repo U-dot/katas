@@ -1,22 +1,4 @@
-export function next_generation(population){
-    let next_generation = population
-    for (let group=0; group<population.length; group++){
-        for (let cell=0; cell<population.length; cell++){
-            next_generation[group][cell] = new_cell_status(group,cell,population);
-        }
-    }
-    return next_generation;
-}
-
-export function new_cell_status(group,cell,population){
-    return false
-}
-
-export function is_cell_alone(group,cell,population){
-    return true //for ([neighbour_group,neighbour_cell] in neighbors(group,cell,population.length)){
-}
-
-Number.prototype.between = function(min,max){
+Number.prototype.in_range = function(min,max){
     return  min <= this && this < max;
 }
 
@@ -26,12 +8,32 @@ export function neighbors(group, cell, number_of_groups, number_of_cells_per_gro
         for (let neighbor_cell = cell-1; neighbor_cell <= cell+1; neighbor_cell++) {
             if (
                 (neighbor_group!=group || neighbor_cell!=cell) && 
-                neighbor_group.between(0, number_of_groups) && 
-                neighbor_cell.between(0, number_of_cells_per_group)
+                neighbor_group.in_range(0, number_of_groups) && 
+                neighbor_cell.in_range(0, number_of_cells_per_group)
                 ) {
-                neighbors.push([neighbor_group, neighbor_cell])
+                neighbors.push({group: neighbor_group, cell: neighbor_cell})
             }
         }
     }
     return neighbors
+}
+
+export function is_alive(group,cell,population){
+    return population[group][cell]
+}
+
+export function neighbors_alive_count(group, cell, population){
+    let number_of_alive_neighbours = 0;
+    neighbors(group, cell, population.length, population[0].length).forEach(
+        function(neighbor)
+        {              
+            if(is_alive(neighbor.group, neighbor.cell, population)){
+                number_of_alive_neighbours++;                
+            }
+        }
+        )
+    return number_of_alive_neighbours
+}
+export function does_cell_live(group, cell, population){
+    return false;
 }
