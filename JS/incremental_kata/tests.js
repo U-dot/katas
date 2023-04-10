@@ -37,4 +37,3 @@ describe("Step 2: The Add method", () => {
         expect(incremental.Add(threeNumbers)).to.equal(3);
     });
 });
-
