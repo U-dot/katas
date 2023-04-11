@@ -14,7 +14,7 @@ function sumOf(array){
 }
 
 function numbersFrom(string){
-    return string.split(",")
+    return string.split(/[, \n]/)
 }
 
 function isEmpty(string){
