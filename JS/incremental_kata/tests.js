@@ -37,15 +37,23 @@ describe("Step 2: The Add method", () => {
         expect(incremental.Add(threeNumbers)).to.equal(3);
     });
 });
-describe("Step 3: The Add method", () => {
-    describe("handles new lines", () => {
-        it("instead of commas", () => {
-            let numbersSeparatedByNewLines = "0\n1\n2";
-            expect(incremental.Add(numbersSeparatedByNewLines)).to.equal(3);
-        });
-        it("in between commas", () => {
-            let numbersSeparatedByNewLines = "0 1\n2";
-            expect(incremental.Add(numbersSeparatedByNewLines)).to.equal(3);
-        });
+describe("Step 3: The Add method handles new lines", () => {
+    it("instead of commas", () => {
+        let numbersSeparatedByNewLines = "0\n1\n2";
+        expect(incremental.Add(numbersSeparatedByNewLines)).to.equal(3);
+    });
+    it("in between commas", () => {
+        let numbersSeparatedByNewLines = "0,1\n2";
+        expect(incremental.Add(numbersSeparatedByNewLines)).to.equal(3);
     });
 });
+describe("Step 4: The add method works with functions that start with //", () => {
+    it(";",() => {
+        let numbers_with_given_separator = "//;/n1;2";
+        expect(incremental.Add(numbers_with_given_separator)).to.equal(3);
+    })
+    it(':', () => {
+        let numbers_with_given_separator = "//:/n2:2";
+        expect(incremental.Add(numbers_with_given_separator)).to.equal(4);
+    });
+})
