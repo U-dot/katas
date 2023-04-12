@@ -42,8 +42,15 @@ function string_array_to_int_array(array){
 function stringNumbersFrom(string){
     let delimiters = ["\n",","];
     if (beginsWithBackSlashes(string)) {
-        delimiters.push(string.charAt(2));
-        string = string.slice(5);
+        if(string.charAt(2)=='['){
+            let new_delimiter = string.match(/\[(.*?)\]/)[1]
+            delimiters.push(new_delimiter)
+        }
+        else {
+            delimiters.push(string.charAt(2));
+        }
+        let index = string.indexOf('/n') + 2
+            string = string.slice(index)
     }
     return splitStringByCharsOnArray(string, delimiters);
 }
