@@ -97,4 +97,13 @@ describe("The Add method", () => {
             expect(incremental.Add("//[:][?]\n1:3?8")).to.equal(12);
         });
     });
+    describe("handles multiple new delimiters of any lenght", () => {
+        it("[:.:][.]", () => {
+            expect(incremental.Add("//[:.:][.]\n1.3:.:3")).to.equal(7);
+        });
+        it("[;;][..]", () => {
+            
+            expect(incremental.Add("//[;;][..]\n1;;3..8")).to.equal(12);
+        });
+    });
 });
