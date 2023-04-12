@@ -51,9 +51,36 @@ describe("Step 4: The add method works with functions that start with //", () =>
     it(";",() => {
         let numbers_with_given_separator = "//;/n1;2";
         expect(incremental.Add(numbers_with_given_separator)).to.equal(3);
-    })
+    });
     it(':', () => {
         let numbers_with_given_separator = "//:/n2:2";
         expect(incremental.Add(numbers_with_given_separator)).to.equal(4);
     });
 })
+describe("Step 5: When the Add method is given a negative it throws an exception", () => {
+    it("//;/n1;-2", () => {
+        let numbers_with_one_negative = "//;/n1;-2";
+        expect(() => incremental.Add("//;/n1;-2")).to.throw();
+    });
+    it("//;/n-1;2", () => {
+        let numbers_with_one_negative = "//;/n-1;2";
+        expect(() => incremental.Add("//;/n-1;2")).to.throw();
+    });
+    describe("of type 'negatives not allowed:",() => {
+        it("-2'", () => {
+            let numbers_with_one_negative = "//;/n1;-2";
+            let error = "negatives not allowed: -2";
+            expect(() => incremental.Add("//;/n1;-2")).to.throw(error);
+        });
+        it("-1", () => {
+            let numbers_with_one_negative = "//;/n-1;2";
+            let error = "negatives not allowed: -1";
+            expect(() => incremental.Add("//;/n-1;2")).to.throw(error);
+        });
+        it("-1 -2", () => {
+            let numbers_with_one_negative = "//;/n-1;-2";
+            let error = "negatives not allowed: -1 -2";
+            expect(() => incremental.Add("//;/n-1;-2")).to.throw(error);
+        });
+    });
+});
