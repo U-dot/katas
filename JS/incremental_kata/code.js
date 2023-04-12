@@ -19,14 +19,14 @@ function is_negative_string_number(string){
     return string[0] === '-';
 }
 function has_negatives(num_array){
-    return num_array.some(num => num<0)
+    return num_array.some(num => num<0);
 }
 function sumOf(array){
     let sum = 0;
     for (let i in array){
         sum += array[i];
     }
-    return sum
+    return sum;
 }
 
 function numbersFrom(string){
@@ -35,26 +35,26 @@ function numbersFrom(string){
     return removeNumbersBiggerThan1000(array_of_numbers);
 }
 function removeNumbersBiggerThan1000(array){
-    return array.filter(num => num <= 1000)
+    return array.filter(num => num <= 1000);
 }
 function string_array_to_int_array(array){
-    return array.map((num) => parseInt(num))
+    return array.map((num) => parseInt(num));
 }
 function stringNumbersFrom(string){
-    let delimiters = delimitersFrom(string)
+    let delimiters = delimitersFrom(string);
     if (beginsWithBackSlashes(string)) {
-        let index = string.indexOf('/n') + 2
-            string = string.slice(index)
+        let index = string.indexOf('/n') + 2;
+        string = string.slice(index);
     }
     return splitStringByCharsOnArray(string, delimiters);
 }
 function delimitersFrom(string){
     let delimiters = ["\n",","];
     if (beginsWithBackSlashes(string)) {
-        let delimitersInsideSquareBrackets =  substringInsideSquareBrackets(string)
-        if(delimitersInsideSquareBrackets){
-            let new_delimiter = delimitersInsideSquareBrackets[1]
-            delimiters.push(new_delimiter)
+        
+        if(hasCompleteSquareBrackets(string)){
+            let new_delimiter = delimitersInsideSquareBrackets(string);
+            delimiters.push(new_delimiter);
         }
         else {
             delimiters.push(string.charAt(2));
@@ -62,8 +62,12 @@ function delimitersFrom(string){
     }
     return delimiters;
 }
-function substringInsideSquareBrackets(string) {
-    return string.match(/\[(.*?)\]/)
+
+function delimitersInsideSquareBrackets(string) {
+    return string.match(/\[(.*?)\]/)[1];
+}
+function hasCompleteSquareBrackets(string) {
+    return string.match(/\[(.*?)\]/);
 }
 function splitStringByCharsOnArray(string,array){
     return string.split(RegExp(array.join("|"),"gi"));
