@@ -29,7 +29,15 @@ function sumOf(array){
 }
 
 function numbersFrom(string){
-    return stringArrayToIntArray(stringNumbersFrom(string));
+    let array_of_string_numbers = stringNumbersFrom(string);
+    let array_of_numbers = string_array_to_int_array(array_of_string_numbers);
+    return removeNumbersBiggerThan1000(array_of_numbers);
+}
+function removeNumbersBiggerThan1000(array){
+    return array.filter(num => num <= 1000)
+}
+function string_array_to_int_array(array){
+    return array.map((num) => parseInt(num))
 }
 function stringNumbersFrom(string){
     let delimiters = ["\n",","];
@@ -40,9 +48,6 @@ function stringNumbersFrom(string){
     return splitStringByCharsOnArray(string, delimiters);
 }
 
-function stringArrayToIntArray(array_of_string_numbers){
-    return array_of_string_numbers.map((num) => parseInt(num));
-}
 function splitStringByCharsOnArray(string,array){
     return string.split(RegExp(array.join("|"),"gi"));
 }
