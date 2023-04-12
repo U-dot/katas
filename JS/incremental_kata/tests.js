@@ -38,48 +38,54 @@ describe("The Add method", () => {
     });
     describe("works with functions that start with //", () => {
         it(";",() => {
-            expect(incremental.Add("//;/n1;2")).to.equal(3);
+            expect(incremental.Add("//;\n1;2")).to.equal(3);
         });
         it(':', () => {
-            expect(incremental.Add("//:/n2:2")).to.equal(4);
+            expect(incremental.Add("//:\n2:2")).to.equal(4);
         });
     })
     describe("when given a negative number throws an exception", () => {
-        it("//;/n1;-2", () => {
-            expect(() => incremental.Add("//;/n1;-2")).to.throw();
+        it("//;\n1;-2", () => {
+            expect(() => incremental.Add("//;\n1;-2")).to.throw();
         });
-        it("//;/n-1;2", () => {
-            expect(() => incremental.Add("//;/n-1;2")).to.throw();
+        it("//;\n-1;2", () => {
+            expect(() => incremental.Add("//;\n-1;2")).to.throw();
         });
         describe("of type 'negatives not allowed:",() => {
             it("-2'", () => {
                 let error = "negatives not allowed: -2";
-                expect(() => incremental.Add("//;/n1;-2")).to.throw(error);
+                expect(() => incremental.Add("//;\n1;-2")).to.throw(error);
             });
             it("-1", () => {
                 let error = "negatives not allowed: -1";
-                expect(() => incremental.Add("//;/n-1;2")).to.throw(error);
+                expect(() => incremental.Add("//;\n-1;2")).to.throw(error);
             });
             it("-1 -2", () => {
                 let error = "negatives not allowed: -1 -2";
-                expect(() => incremental.Add("//;/n-1;-2")).to.throw(error);
+                expect(() => incremental.Add("//;\n-1;-2")).to.throw(error);
             });
+        });
+        it("can take - as a part of a delimiter", () => {
+            expect(incremental.Add("//-\n1-2")).to.equal;            
         });
     });
     describe("ignores numbers bigger than 1000", () => {
         it("1000", () => {
-            expect(incremental.Add("//;/n1;1000")).to.equal(1001);
+            expect(incremental.Add("//;\n1;1000")).to.equal(1001);
         });
         it("1001", () => {
-            expect(incremental.Add("//;/n0;1001")).to.equal(0);
+            expect(incremental.Add("//;\n0;1001")).to.equal(0);
         });
         it("1031", () => {
-            expect(incremental.Add("//;/n4;1031")).to.equal(4);
+            expect(incremental.Add("//;\n4;1031")).to.equal(4);
         });
     });
     describe("handles delimiters of any lenght", () => {
-        it("..:", () => {
-            expect(incremental.Add("//[..:]/n1..:3")).to.equal(4);
+        it("[..:]", () => {
+            expect(incremental.Add("//[..:]\n1..:3")).to.equal(4);
+        });
+        it("[:.:]", () => {
+            expect(incremental.Add("//[:.:]\n1:.:3:.:2")).to.equal(6);
         });
     });
 });

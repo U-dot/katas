@@ -1,8 +1,9 @@
 export function Add(string){
     if (isEmpty(string)) return 0;
-    if (has_negatives(string)) throwNegativeNumbersError(string);
-
     let numbers = numbersFrom(string);
+
+    if (has_negatives(numbers)) throwNegativeNumbersError(string);
+    
     return sumOf(numbers);
 }
 function throwNegativeNumbersError(string){
@@ -17,8 +18,8 @@ function negativeNumbersFrom(string){
 function is_negative_string_number(string){
     return string[0] === '-';
 }
-function has_negatives(string){
-    return string.includes('-')
+function has_negatives(num_array){
+    return num_array.some(num => num<0)
 }
 function sumOf(array){
     let sum = 0;
@@ -40,21 +41,30 @@ function string_array_to_int_array(array){
     return array.map((num) => parseInt(num))
 }
 function stringNumbersFrom(string){
-    let delimiters = ["\n",","];
+    let delimiters = delimitersFrom(string)
     if (beginsWithBackSlashes(string)) {
-        if(string.charAt(2)=='['){
-            let new_delimiter = string.match(/\[(.*?)\]/)[1]
-            delimiters.push(new_delimiter)
-        }
-        else {
-            delimiters.push(string.charAt(2));
-        }
         let index = string.indexOf('/n') + 2
             string = string.slice(index)
     }
     return splitStringByCharsOnArray(string, delimiters);
 }
-
+function delimitersFrom(string){
+    let delimiters = ["\n",","];
+    if (beginsWithBackSlashes(string)) {
+        let delimitersInsideSquareBrackets =  substringInsideSquareBrackets(string)
+        if(delimitersInsideSquareBrackets){
+            let new_delimiter = delimitersInsideSquareBrackets[1]
+            delimiters.push(new_delimiter)
+        }
+        else {
+            delimiters.push(string.charAt(2));
+        }
+    }
+    return delimiters;
+}
+function substringInsideSquareBrackets(string) {
+    return string.match(/\[(.*?)\]/)
+}
 function splitStringByCharsOnArray(string,array){
     return string.split(RegExp(array.join("|"),"gi"));
 }
