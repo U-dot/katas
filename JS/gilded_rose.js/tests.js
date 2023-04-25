@@ -13,10 +13,13 @@ describe("Gilded Rose", function() {
     it("Aged Brie", function() {
       const gildedRose = new Shop([
         new Item("Aged Brie", 2, 0),
+        new Item("Aged Brie", 0, 5),
       ]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).to.equal(1);
       expect(items[0].quality).to.equal(1);
+      expect(items[1].sellIn).to.equal(-1);
+      expect(items[1].quality).to.equal(7);
     });
     it("Elixir", function() {
       const gildedRose = new Shop([
@@ -42,6 +45,7 @@ describe("Gilded Rose", function() {
         new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
         new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
         new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 49),
       ]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).to.equal(14);
@@ -50,6 +54,8 @@ describe("Gilded Rose", function() {
       expect(items[1].quality).to.equal(50);
       expect(items[2].sellIn).to.equal(4);
       expect(items[2].quality).to.equal(50);
+      expect(items[3].sellIn).to.equal(-1);
+      expect(items[3].quality).to.equal(0);
     });
   });
 });
