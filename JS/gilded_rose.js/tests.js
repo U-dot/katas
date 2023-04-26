@@ -21,13 +21,17 @@ describe("Gilded Rose", function() {
       const gildedRose = new Shop([
         new Item("+5 Dexterity Vest", 10, 20),
         new Item("Elixir of the Mongoose", 5, 7),
+        new Item("Elixir of the Mongoose", 0, 7),
       ]);
       const items = gildedRose.updateQuality();
       it("Dexterity Vest quality", function() {
         expect(items[0].quality).to.equal(19);
       });
-      it("Elixir quality", function() {
+      it("Elixir quality before sell date", function() {
         expect(items[1].quality).to.equal(6);
+      });
+      it("Elixir quality after sell date", function() {
+        expect(items[2].quality).to.equal(5);
       });
     });
     describe("Aged Brie:", function() {
@@ -36,20 +40,20 @@ describe("Gilded Rose", function() {
         new Item("Aged Brie", 0, 5),
       ]);
       const items = gildedRose.updateQuality();
-      it("normal case quality", function() {
+      it("before sell date", function() {
         expect(items[0].quality).to.equal(1);
       });
-      it("past sell date quality", function() {
+      it("past sell date", function() {
         expect(items[1].quality).to.equal(7);
       });
     });
       describe("Sulfuras:", function() {
       const gildedRose = new Shop([
         new Item("Sulfuras, Hand of Ragnaros", 0, 80),
-        new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+        new Item("Sulfuras, Hand of Ragnaros", 0, 80),
       ]);
       const items = gildedRose.updateQuality();
-      it("normal case", function() {
+      it("before sell date", function() {
         expect(items[0].quality).to.equal(80);
       });
       it("past sell date", function() {
@@ -80,7 +84,7 @@ describe("Gilded Rose", function() {
     describe("Conjured Mana Cake, it degrades twice as fast", function() {
       const gildedRose = new Shop([
         new Item("Conjured Mana Cake", 3, 6),
-        new Item("Conjured Mana Cake", -1, 10),
+        new Item("Conjured Mana Cake", 0, 10),
       ]);
       const items = gildedRose.updateQuality();
       it("before sell date", function() {
