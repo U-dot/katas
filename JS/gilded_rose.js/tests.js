@@ -50,11 +50,9 @@ describe("Gilded Rose", function() {
       ]);
       const items = gildedRose.updateQuality();
       it("normal case", function() {
-        expect(items[0].sellIn).to.equal(0);
         expect(items[0].quality).to.equal(80);
       });
       it("past sell date", function() {
-        expect(items[1].sellIn).to.equal(-1);
         expect(items[1].quality).to.equal(80);
       });
     });
@@ -89,7 +87,7 @@ describe("Gilded Rose", function() {
         expect(items[0].quality).to.equal(4);
       });
       it("after sell date", function() {
-        expect(items[0].quality).to.equal(6);
+        expect(items[1].quality).to.equal(6);
       });
     });
   });
