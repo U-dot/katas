@@ -21,25 +21,38 @@ describe("Gilded Rose", function() {
     });
   });
   describe("updates quality for ", function() {
+    describe("any case cannot be negative", function() {
+      const gildedRose = new Shop([
+        new Item("+5 Dexterity Vest", 10, 0),
+        new Item("Elixir of the Mongoose", 0, 0),
+        new Item("Elixir of the Mongoose", -3, 1),
+      ]);
+      const items = gildedRose.updateQuality();
+      it("before sell date", function() {
+        expect(items[0].quality).to.equal(0);
+      });
+      it("on sell date", function() {
+        expect(items[1].quality).to.equal(0);
+      });
+      it("after sell date", function() {
+        expect(items[2].quality).to.equal(0);
+      });
+    });
     describe("non especial cases:", function() {
       const gildedRose = new Shop([
         new Item("+5 Dexterity Vest", 10, 20),
-        new Item("Elixir of the Mongoose", 5, 7),
         new Item("Elixir of the Mongoose", 0, 7),
-        new Item("Elixir of the Mongoose", -3, 7),
+        new Item("Elixir of the Mongoose", -3, 1),
       ]);
       const items = gildedRose.updateQuality();
-      it("Dexterity Vest", function() {
+      it("before sell date", function() {
         expect(items[0].quality).to.equal(19);
       });
-      it("Elixir quality before sell date", function() {
-        expect(items[1].quality).to.equal(6);
+      it("on sell date", function() {
+        expect(items[1].quality).to.equal(5);
       });
-      it("Elixir quality on sell date", function() {
-        expect(items[2].quality).to.equal(5);
-      });
-      it("Elixir quality after sell date", function() {
-        expect(items[3].quality).to.equal(5);
+      it("after sell date", function() {
+        expect(items[2].quality).to.equal(0);
       });
     });
     describe("Aged Brie:", function() {
@@ -101,7 +114,7 @@ describe("Gilded Rose", function() {
         expect(items[3].quality).to.equal(0);
       });
     });
-    describe("Conjured Mana Cake, it degrades twice as fast", function() {
+    describe("Conjured Mana Cake", function() {
       const gildedRose = new Shop([
         new Item("Conjured Mana Cake", 3, 6),
         new Item("Conjured Mana Cake", 0, 10),
