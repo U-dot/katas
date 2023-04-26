@@ -38,6 +38,39 @@ describe("Gilded Rose", function() {
         expect(items[2].quality).to.equal(0);
       });
     });
+    describe("any case cannot be bigger than 50", function() {
+      const gildedRose = new Shop([
+        new Item("Aged Brie", 5, 50),
+        new Item("Aged Brie", -1, 49),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 6, 49),
+        new Item("Backstage passes to a TAFKAL80ETC concert", 3, 49),
+      ]);
+      const items = gildedRose.updateQuality();
+      describe("Aged Brie", function() {
+        it("on sell date", function () {
+          expect(items[0].quality).to.equal(50);
+        });
+        it("past sell date", function () {
+          expect(items[1].quality).to.equal(50);
+        });
+      });
+      describe("Aged Brie", function() {
+        it("on sell date", function () {
+          expect(items[0].quality).to.equal(50);
+        });
+        it("past sell date", function () {
+          expect(items[1].quality).to.equal(50);
+        });
+      });
+      describe("Backstage passes", function() {
+        it("6 days left", function() {
+        expect(items[2].quality).to.equal(50);
+        });
+        it("3 days left", function() {
+          expect(items[3].quality).to.equal(50);
+        });
+      });
+    });
     describe("non especial cases:", function() {
       const gildedRose = new Shop([
         new Item("+5 Dexterity Vest", 10, 20),
@@ -71,6 +104,7 @@ describe("Gilded Rose", function() {
       it("past sell date", function() {
         expect(items[2].quality).to.equal(7);
       });
+
     });
       describe("Sulfuras:", function() {
       const gildedRose = new Shop([
