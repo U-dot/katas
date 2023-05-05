@@ -1,1 +1,15 @@
-# katas
+# Javascript TDD Skeleton
+
+This is a skeleton project for doing TDD exercises in Javascript. On a kata folder use `npm install` to install the dependencies of the project.
+Then, use `npm test` to run the tests, or `npm run watch` to run mocha in "watch mode" to automatically re-run tests whenever
+the source files change.
+
+Prerequisites:
+
+* NodeJS
+
+References:
+
+- Chai expected cheatsheet: https://devhints.io/chai
+
+Template taken from https://github.com/piratax007/katas/edit/main/JS/template/
