@@ -1,0 +1,30 @@
+Restrictions for this kata:
+  - Don't use '=' (but '==' and '===' are valid)
+
+#---------------------------> ToDo
+- set environment
+- apply one instruction to one rover
+
+#---------------------------> Notes
+
+- rectangular grid
+- rovers position ex: 0,0,N (x, y, direction)
+- posible instructions: L,R,M (left, right, move forward)
+- 0,0,N -M-> 0,1,N
+  so the grid would be
+      0 1 2
+    -------
+  2 |   N
+  1 | W   E
+  0 |   S
+
+Input:
+5 5         grid width and height
+1 2 N       pos and dir of rover 1
+LMLMLMLMM   instrctuons for rover 1
+3 3 E       pos and dir of rover 2
+MMRMMRMRRM  instructions for rover 2
+
+Output:
+13 N
+5 1 E
