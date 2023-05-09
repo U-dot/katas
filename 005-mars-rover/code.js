@@ -4,11 +4,12 @@ export function executeInstructions(rover){
 
 function newDirection(rover){
     if (rover.instructions === 'R'){
-        return turnRight(rover.direction)
+        return turnRight(rover.direction);
     }
     else if (rover.instructions === 'L'){
-        return turnLeft(rover.direction)
+        return turnLeft(rover.direction);
     }
+    throw new TypeError(`Invalid instruction '${rover.instructions}'`);
 }
 
 function turnLeft(direction){

@@ -152,5 +152,24 @@ describe("Given a sole rover in", () => {
                 console.log.mockReset();
             });
         });
+        describe("When given a wrong instruction", () => {
+            it("It throws an error", () => {
+                jest.spyOn(console,"log")
+                expect(() => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'S',
+                        instructions: 'X',
+                        plateau: {
+                            width: 0,
+                            height: 0,
+                        }
+                    })
+                }).toThrow(`Invalid instruction 'X'`)
+                expect(console.log).toBeCalledTimes(0)
+                console.log.mockReset();
+            });
+        });
     });
 });
