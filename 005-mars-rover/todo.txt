@@ -2,9 +2,15 @@ Restrictions for this kata:
   - Don't use '=' (but '==' and '===' are valid)
 
 #---------------------------> ToDo
-- set environment
-- apply one instruction to one rover
-
+- [X] mock console.log
+- [ ] apply any instruction to one rover
+    - [X] turns
+        - [X] error: instruction different to LRM
+        - [ ] error: invalid direction
+    - [ ] movements
+        - [ ] error: invalid movement (outside of grid size)
+- [ ] apply a sequence of instructions to any rover
+- [ ] apply a sequence of instructions to more than one rover
 #---------------------------> Notes
 
 - rectangular grid
