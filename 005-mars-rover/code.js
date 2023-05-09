@@ -6,8 +6,10 @@ export function executeInstructions(rover){
 function newPosition(rover){
     if (rover.instructions === 'M'){
         switch(rover.direction){
-            case 'N': return `0 1`;
-            case 'E': return `1 ${rover.y}`;
+            case 'W': return `${rover.x-1} ${rover.y}`;
+            case 'N': return `${rover.x} ${rover.y+1}`;
+            case 'E': return `${rover.x+1} ${rover.y}`;
+            case 'S': return `${rover.x} ${rover.y-1}`;
         }
     }
     return `0 0`;
