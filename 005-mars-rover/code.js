@@ -5,9 +5,12 @@ export function executeInstructions(rover){
 
 function newPosition(rover){
     if (rover.instructions === 'M'){
-        throw new TypeError('Cannot move outside of plateau boundaries');
+        switch(rover.direction){
+            case 'N': return `0 1`;
+            case 'E': return `1 ${rover.y}`;
+        }
     }
-    return `0 0`
+    return `0 0`;
 }
 
 function newDirection(rover){
@@ -17,6 +20,7 @@ function newDirection(rover){
     else if (rover.instructions === 'L'){
         return turnLeft(rover.direction);
     }
+    return rover.direction;
 }
 
 function turnLeft(direction){
@@ -41,19 +45,23 @@ function turnRight(direction){
 
 
 function roverInfoIsValid(rover){
-    if (roverPositionIsValid(rover)){
+    if (!roverPositionIsValid(rover)){
         throw new TypeError(`Invalid position '${rover.x},${rover.y}' in grid of size 1,1 indexed from zero`);
     }
 
-    if (roverInstructionIsValid(rover)) {
+    if (!roverInstructionIsValid(rover)) {
         throw new TypeError(`Invalid instruction '${rover.instructions}'`);
     }
 }
 
 function roverPositionIsValid(rover){
-    return rover.x>0 || rover.y>0;
+    return valueIsNonNegativeSmallerThanMax(rover.x,rover.plateau.width) && valueIsNonNegativeSmallerThanMax(rover.y,rover.plateau.height);
+}
+
+function valueIsNonNegativeSmallerThanMax(value,max){
+    return max>=value && value>=0;
 }
 
 function roverInstructionIsValid(rover){
-    return !'LRM'.includes(rover.instructions)
+    return 'LRM'.includes(rover.instructions)
 }

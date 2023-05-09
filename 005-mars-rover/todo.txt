@@ -8,6 +8,7 @@ Restrictions for this kata:
     - [X] turns
         - [X] error: instruction different to LRM
         - [X] error: invalid direction
+        - [ ] in between func
     - [ ] movements
         - [ ] error: invalid movement (outside of grid size)
 - [ ] apply a sequence of instructions to any rover

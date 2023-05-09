@@ -231,12 +231,73 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
                         direction: 'S',
                         instructions: 'L',
                         plateau: {
-                            width: 1,
-                            height: 1,
+                            width: 0,
+                            height: 0,
                         }
                     })
                 }).toThrow(`Invalid position '1,0' in grid of size 1,1 indexed from zero`);
                 expect(console.log).toBeCalledTimes(0);
+            });
+        });
+    });
+});
+
+describe("Given a 1x1 plateau with a sole rover in", () => {
+    describe("0,0 ", () => {
+        describe("facing north", () => {
+            describe("When instructed to move forward", () => {
+                it("It is in 0,1", () => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'N',
+                        instructions: 'M',
+                        plateau: {
+                            width: 1,
+                            height: 1,
+                        }
+                    });
+                    expect(console.log).toBeCalledWith("0 1 N\n");
+                    expect(console.log).toBeCalledTimes(1);
+                });
+            });
+        });
+        describe("facing east", () => {
+            describe("When instructed to move forward", () => {
+                it("It is in 1,0", () => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'E',
+                        instructions: 'M',
+                        plateau: {
+                            width: 1,
+                            height: 1,
+                        }
+                    });
+                    expect(console.log).toBeCalledWith("1 0 E\n");
+                    expect(console.log).toBeCalledTimes(1);
+                });
+            });
+        });
+    });
+    describe("0,1 ", () => {
+        describe("facing east", () => {
+            describe("When instructed to move forward", () => {
+                it("It is in 1,1", () => {
+                    executeInstructions({
+                        x: 0,
+                        y: 1,
+                        direction: 'E',
+                        instructions: 'M',
+                        plateau: {
+                            width: 1,
+                            height: 1,
+                        }
+                    });
+                    expect(console.log).toBeCalledWith("1 1 E\n");
+                    expect(console.log).toBeCalledTimes(1);
+                });
             });
         });
     });
