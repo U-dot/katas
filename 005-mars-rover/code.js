@@ -18,7 +18,7 @@ function turnLeft(direction){
         case 'S': return 'E';
         case 'E': return 'N';
         case 'N': return 'W';
-        default: ;
+        default: throw new TypeError(`Invalid direction '${direction}'`);
     }
 }
 
@@ -28,6 +28,6 @@ function turnRight(direction){
         case 'S': return 'W';
         case 'E': return 'S';
         case 'N': return 'E';
-        default: ;
+        default: throw new TypeError(`Invalid direction '${direction}'`);
     }
 }

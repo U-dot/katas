@@ -3,11 +3,11 @@ Restrictions for this kata:
 
 #---------------------------> ToDo
 - [X] mock console.log
-- [ ] make setup/teardown so that a single test failing doesnt affect everything
+- [X] make setup/teardown so that a single test failing doesnt affect everything
 - [ ] apply any instruction to one rover
     - [X] turns
         - [X] error: instruction different to LRM
-        - [ ] error: invalid direction
+        - [X] error: invalid direction
     - [ ] movements
         - [ ] error: invalid movement (outside of grid size)
 - [ ] apply a sequence of instructions to any rover

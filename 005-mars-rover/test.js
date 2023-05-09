@@ -148,7 +148,7 @@ describe("Given a sole rover in", () => {
                 expect(console.log).toBeCalledTimes(1);
             });
         });
-        describe("When given a wrong instruction", () => {
+        describe("When given a wrong instruction 'X'", () => {
             it("It throws an error", () => {
                 expect(() => {
                     executeInstructions({
@@ -162,6 +162,59 @@ describe("Given a sole rover in", () => {
                         }
                     })
                 }).toThrow(`Invalid instruction 'X'`);
+                expect(console.log).toBeCalledTimes(0);
+            });
+        });
+        describe("When given a wrong instruction '3'", () => {
+            it("It throws an error", () => {
+                expect(() => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'S',
+                        instructions: '3',
+                        plateau: {
+                            width: 0,
+                            height: 0,
+                        }
+                    })
+                }).toThrow(`Invalid instruction '3'`);
+                expect(console.log).toBeCalledTimes(0);
+            });
+        });
+    });
+    describe("0,0 facing an invalid direction 'T'", () => {
+        describe("When instructed to turn left", () => {
+            it("It throws an error", () => {
+                expect(() => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'T',
+                        instructions: 'L',
+                        plateau: {
+                            width: 0,
+                            height: 0,
+                        }
+                    })
+                }).toThrow(`Invalid direction 'T'`);
+                expect(console.log).toBeCalledTimes(0);
+            });
+        });
+        describe("When instructed to turn right", () => {
+            it("It throws an error", () => {
+                expect(() => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'T',
+                        instructions: 'R',
+                        plateau: {
+                            width: 0,
+                            height: 0,
+                        }
+                    })
+                }).toThrow(`Invalid direction 'T'`);
                 expect(console.log).toBeCalledTimes(0);
             });
         });
