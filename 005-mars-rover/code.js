@@ -1,18 +1,30 @@
 export function executeInstructions(rover){
     roverInfoIsValid(rover);
-    console.log(`${newPosition(rover)} ${newDirection(rover)}\n`);
+    console.log(`${newXPosition(rover)} ${newYPosition(rover)} ${newDirection(rover)}\n`);
 }
 
-function newPosition(rover){
+function newXPosition(rover){
     if (rover.instructions === 'M'){
         switch(rover.direction){
-            case 'W': return `${rover.x-1} ${rover.y}`;
-            case 'N': return `${rover.x} ${rover.y+1}`;
-            case 'E': return `${rover.x+1} ${rover.y}`;
-            case 'S': return `${rover.x} ${rover.y-1}`;
+            case 'W': return rover.x-1
+            case 'N': return rover.x;
+            case 'E': return rover.x+1
+            case 'S': return rover.x;
         }
     }
-    return `0 0`;
+    return rover.x;
+}
+
+function newYPosition(rover){
+    if (rover.instructions === 'M'){
+        switch(rover.direction){
+            case 'W': return rover.y;
+            case 'N': return rover.y+1;
+            case 'E': return rover.y;
+            case 'S': return rover.y-1;
+        }
+    }
+    return rover.y;
 }
 
 function newDirection(rover){
@@ -53,6 +65,15 @@ function roverInfoIsValid(rover){
 
     if (!roverInstructionIsValid(rover)) {
         throw new TypeError(`Invalid instruction '${rover.instructions}'`);
+    }
+
+    if (rover.instructions === 'M'){
+        if (
+            valueIsNonNegativeSmallerThanMax(newXPosition(rover), rover.plateau.width)
+            && valueIsNonNegativeSmallerThanMax(newYPosition(rover), rover.plateau.height)
+        )
+            return `${newXPosition(rover)} ${newYPosition(rover)}`;
+        throw new TypeError("Cannot move outside of plateau boundaries")
     }
 }
 

@@ -244,6 +244,46 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
 
 describe("Given a 2x2 plateau with a sole rover in", () => {
     describe("0,0 ", () => {
+        describe("facing west", () => {
+            describe("When instructed to move forward", () => {
+                it("It throws 'Cannot move outside of plateau boundaries' error", () => {
+
+                    expect(() => {
+                        executeInstructions({
+                            x: 0,
+                            y: 0,
+                            direction: 'W',
+                            instructions: 'M',
+                            plateau: {
+                                width: 2,
+                                height: 2,
+                            }
+                        });
+                    }).toThrow(`Cannot move outside of plateau boundaries`);
+                    expect(console.log).toBeCalledTimes(0);
+                });
+            });
+        });
+        describe("facing south", () => {
+            describe("When instructed to move forward", () => {
+                it("It throws 'Cannot move outside of plateau boundaries' error", () => {
+
+                    expect(() => {
+                        executeInstructions({
+                            x: 0,
+                            y: 0,
+                            direction: 'S',
+                            instructions: 'M',
+                            plateau: {
+                                width: 2,
+                                height: 2,
+                            }
+                        });
+                    }).toThrow(`Cannot move outside of plateau boundaries`);
+                    expect(console.log).toBeCalledTimes(0);
+                });
+            });
+        });
         describe("facing east", () => {
             describe("When instructed to move forward", () => {
                 it("It is in 1,0", () => {
@@ -389,6 +429,44 @@ describe("Given a 2x2 plateau with a sole rover in", () => {
                     });
                     expect(console.log).toBeCalledWith("2 1 S\n");
                     expect(console.log).toBeCalledTimes(1);
+                });
+            });
+        });
+        describe("facing east", () => {
+            describe("When instructed to move forward", () => {
+                it("It throws 'Cannot move outside of plateau boundaries' error", () => {
+                    expect(() => {
+                        executeInstructions({
+                            x: 2,
+                            y: 2,
+                            direction: 'E',
+                            instructions: 'M',
+                            plateau: {
+                                width: 2,
+                                height: 2,
+                            }
+                        });
+                    }).toThrow(`Cannot move outside of plateau boundaries`);
+                    expect(console.log).toBeCalledTimes(0);
+                });
+            });
+        });
+        describe("facing north", () => {
+            describe("When instructed to move forward", () => {
+                it("It throws 'Cannot move outside of plateau boundaries' error", () => {
+                    expect(() => {
+                        executeInstructions({
+                            x: 2,
+                            y: 2,
+                            direction: 'N',
+                            instructions: 'M',
+                            plateau: {
+                                width: 2,
+                                height: 2,
+                            }
+                        });
+                    }).toThrow(`Cannot move outside of plateau boundaries`);
+                    expect(console.log).toBeCalledTimes(0);
                 });
             });
         });

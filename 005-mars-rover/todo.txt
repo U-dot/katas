@@ -10,7 +10,7 @@ Restrictions for this kata:
         - [X] error: invalid direction
         - [ ] in between func
     - [x] movements
-        - [ ] error: invalid movement (outside of grid size)
+        - [X] error: invalid movement (outside of grid size)
 - [ ] apply a sequence of instructions to any rover
 - [ ] apply a sequence of instructions to more than one rover
 #---------------------------> Notes
