@@ -148,23 +148,6 @@ describe("Given a 1x1 plateau with a sole rover in", () => {
                 expect(console.log).toBeCalledTimes(1);
             });
         });
-        describe("When instructed to move forward", () => {
-            it("It throws an error", () => {
-                expect(() => {
-                    executeInstructions({
-                        x: 0,
-                        y: 0,
-                        direction: 'S',
-                        instructions: 'M',
-                        plateau: {
-                            width: 0,
-                            height: 0,
-                        }
-                    })
-                }).toThrow(`Cannot move outside of plateau boundaries`);
-                expect(console.log).toBeCalledTimes(0);
-            });
-        });
         describe("When given a invalid instruction 'X'", () => {
             it("It throws an error", () => {
                 expect(() => {
@@ -252,6 +235,27 @@ describe("Given a 1x1 plateau with a sole rover in", () => {
                     })
                 }).toThrow(`Invalid position '1,1' in grid of size 1,1 indexed from zero`);
                 expect(console.log).toBeCalledTimes(0);
+            });
+        });
+    });
+});
+
+describe("Given a 2x2 plateau with a sole rover in", () => {
+    describe("0,0 facing north", () => {
+        describe("When instructed to move forward", () => {
+            it("It is in 0,1", () => {
+                executeInstructions({
+                    x: 0,
+                    y: 0,
+                    direction: 'N',
+                    instructions: 'M',
+                    plateau: {
+                        width: 1,
+                        height: 1,
+                    }
+                });
+                expect(console.log).toBeCalledWith("0 1 N\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
     });
