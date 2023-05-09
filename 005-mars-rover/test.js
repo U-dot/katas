@@ -1,7 +1,7 @@
 import { executeInstructions } from "./code";
 
 beforeAll(() => {
-    jest.spyOn(console,"log")
+    jest.spyOn(console,"log");
 });
 
 afterEach(() => {
@@ -26,8 +26,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 W\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 W\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
         describe("When instructed to turn right", () => {
@@ -42,8 +42,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 E\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 E\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
     });
@@ -60,8 +60,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 S\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 S\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
         describe("When instructed to turn right", () => {
@@ -76,8 +76,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 N\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 N\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
     });
@@ -94,8 +94,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 N\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 N\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
         describe("When instructed to turn right", () => {
@@ -110,8 +110,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 S\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 S\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
     });
@@ -128,8 +128,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 E\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 E\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
         describe("When instructed to turn right", () => {
@@ -144,8 +144,8 @@ describe("Given a sole rover in", () => {
                         height: 0,
                     }
                 });
-                expect(console.log).toBeCalledWith("0 0 W\n")
-                expect(console.log).toBeCalledTimes(1)
+                expect(console.log).toBeCalledWith("0 0 W\n");
+                expect(console.log).toBeCalledTimes(1);
             });
         });
         describe("When given a wrong instruction", () => {
@@ -161,8 +161,8 @@ describe("Given a sole rover in", () => {
                             height: 0,
                         }
                     })
-                }).toThrow(`Invalid instruction 'X'`)
-                expect(console.log).toBeCalledTimes(0)
+                }).toThrow(`Invalid instruction 'X'`);
+                expect(console.log).toBeCalledTimes(0);
             });
         });
     });

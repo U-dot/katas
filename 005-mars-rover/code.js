@@ -14,20 +14,20 @@ function newDirection(rover){
 
 function turnLeft(direction){
     switch (direction){
-        case 'W': return 'S'
-        case 'S': return 'E'
-        case 'E': return 'N'
-        case 'N': return 'W'
-        default:
+        case 'W': return 'S';
+        case 'S': return 'E';
+        case 'E': return 'N';
+        case 'N': return 'W';
+        default: ;
     }
 }
 
 function turnRight(direction){
     switch (direction){
-        case 'W': return 'N'
-        case 'S': return 'W'
-        case 'E': return 'S'
-        case 'N': return 'E'
-        default:
+        case 'W': return 'N';
+        case 'S': return 'W';
+        case 'E': return 'S';
+        case 'N': return 'E';
+        default: ;
     }
 }
