@@ -12,7 +12,7 @@ afterAll(() => {
     jest.restoreAllMocks();
 })
 
-describe("Given a sole rover in", () => {
+describe("Given a 1x1 plateau with a sole rover in", () => {
     describe("0,0 facing north", () => {
         describe("When instructed to turn left", () => {
             it("It faces west", () => {
@@ -148,7 +148,24 @@ describe("Given a sole rover in", () => {
                 expect(console.log).toBeCalledTimes(1);
             });
         });
-        describe("When given a wrong instruction 'X'", () => {
+        describe("When instructed to move forward", () => {
+            it("It throws an error", () => {
+                expect(() => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'S',
+                        instructions: 'M',
+                        plateau: {
+                            width: 0,
+                            height: 0,
+                        }
+                    })
+                }).toThrow(`Cannot move outside of plateau boundaries`);
+                expect(console.log).toBeCalledTimes(0);
+            });
+        });
+        describe("When given a invalid instruction 'X'", () => {
             it("It throws an error", () => {
                 expect(() => {
                     executeInstructions({
@@ -165,7 +182,7 @@ describe("Given a sole rover in", () => {
                 expect(console.log).toBeCalledTimes(0);
             });
         });
-        describe("When given a wrong instruction '3'", () => {
+        describe("When given a invalid instruction '3'", () => {
             it("It throws an error", () => {
                 expect(() => {
                     executeInstructions({
@@ -215,6 +232,25 @@ describe("Given a sole rover in", () => {
                         }
                     })
                 }).toThrow(`Invalid direction 'T'`);
+                expect(console.log).toBeCalledTimes(0);
+            });
+        });
+    });
+    describe("1,1 facing south", () => {
+        describe("When instructed to turn left", () => {
+            it("It throws an error", () => {
+                expect(() => {
+                    executeInstructions({
+                        x: 1,
+                        y: 1,
+                        direction: 'S',
+                        instructions: 'L',
+                        plateau: {
+                            width: 1,
+                            height: 1,
+                        }
+                    })
+                }).toThrow(`Invalid position '1,1' in grid of size 1,1 indexed from zero`);
                 expect(console.log).toBeCalledTimes(0);
             });
         });

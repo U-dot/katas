@@ -1,5 +1,15 @@
 export function executeInstructions(rover){
-    console.log(`0 0 ${newDirection(rover)}\n`);
+    console.log(`${newPosition(rover)} ${newDirection(rover)}\n`);
+}
+
+function newPosition(rover){
+    if (rover.x>0 || rover.y>0){
+        throw new TypeError(`Invalid position '${rover.x},${rover.y}' in grid of size 1,1 indexed from zero`);
+    }
+    if (rover.instructions === 'M'){
+        throw new TypeError('Cannot move outside of plateau boundaries');
+    }
+    return `0 0`
 }
 
 function newDirection(rover){
@@ -9,7 +19,9 @@ function newDirection(rover){
     else if (rover.instructions === 'L'){
         return turnLeft(rover.direction);
     }
-    throw new TypeError(`Invalid instruction '${rover.instructions}'`);
+    if (!'LRM'.includes(rover.instructions)) {
+        throw new TypeError(`Invalid instruction '${rover.instructions}'`);
+    }
 }
 
 function turnLeft(direction){
