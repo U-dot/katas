@@ -1,10 +1,21 @@
 import { executeInstructions } from "./code";
 
+beforeAll(() => {
+    jest.spyOn(console,"log")
+});
+
+afterEach(() => {
+    console.log.mockClear();
+});
+
+afterAll(() => {
+    jest.restoreAllMocks();
+})
+
 describe("Given a sole rover in", () => {
     describe("0,0 facing north", () => {
         describe("When instructed to turn left", () => {
             it("It faces west", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -17,12 +28,10 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 W\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
         describe("When instructed to turn right", () => {
             it("It faces east", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -35,14 +44,12 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 E\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
     });
     describe("0,0 facing west", () => {
         describe("When instructed to turn left", () => {
             it("It faces south", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -55,12 +62,10 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 S\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
         describe("When instructed to turn right", () => {
             it("It faces south", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -73,14 +78,12 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 N\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
     });
     describe("0,0 facing east", () => {
         describe("When instructed to turn left", () => {
             it("It faces north", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -93,12 +96,10 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 N\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
         describe("When instructed to turn right", () => {
             it("It faces south", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -111,14 +112,12 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 S\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
     });
     describe("0,0 facing south", () => {
         describe("When instructed to turn left", () => {
             it("It faces east", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -131,12 +130,10 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 E\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
         describe("When instructed to turn right", () => {
             it("It faces west", () => {
-                jest.spyOn(console,"log")
                 executeInstructions({
                     x: 0,
                     y: 0,
@@ -149,12 +146,10 @@ describe("Given a sole rover in", () => {
                 });
                 expect(console.log).toBeCalledWith("0 0 W\n")
                 expect(console.log).toBeCalledTimes(1)
-                console.log.mockReset();
             });
         });
         describe("When given a wrong instruction", () => {
             it("It throws an error", () => {
-                jest.spyOn(console,"log")
                 expect(() => {
                     executeInstructions({
                         x: 0,
@@ -168,7 +163,6 @@ describe("Given a sole rover in", () => {
                     })
                 }).toThrow(`Invalid instruction 'X'`)
                 expect(console.log).toBeCalledTimes(0)
-                console.log.mockReset();
             });
         });
     });

@@ -3,6 +3,7 @@ Restrictions for this kata:
 
 #---------------------------> ToDo
 - [X] mock console.log
+- [ ] make setup/teardown so that a single test failing doesnt affect everything
 - [ ] apply any instruction to one rover
     - [X] turns
         - [X] error: instruction different to LRM
