@@ -5,7 +5,7 @@
   "repository": "https://github.com/asemio/js-tdd-skeleton",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests.js --compilers js:babel-core/register",
+    "test": "jest",
     "test:watch": "npm run test -- --watch"
   },
   "author": "",
@@ -13,11 +13,9 @@
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-preset-env": "^1.6.1",
-    "chai": "^4.0.1",
     "eslint": "^4.15.0",
     "eslint-config-asemio": "github:asemio/eslint-config-asemio",
-    "mocha": "^3.4.2",
-    "mocha-eslint": "^4.1.0"
+    "jest": "^29.5.0"
   },
   "babel": {
     "presets": ["env"]
