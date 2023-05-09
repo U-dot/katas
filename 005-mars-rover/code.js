@@ -1,11 +1,9 @@
 export function executeInstructions(rover){
+    roverInfoIsValid(rover);
     console.log(`${newPosition(rover)} ${newDirection(rover)}\n`);
 }
 
 function newPosition(rover){
-    if (rover.x>0 || rover.y>0){
-        throw new TypeError(`Invalid position '${rover.x},${rover.y}' in grid of size 1,1 indexed from zero`);
-    }
     if (rover.instructions === 'M'){
         throw new TypeError('Cannot move outside of plateau boundaries');
     }
@@ -18,9 +16,6 @@ function newDirection(rover){
     }
     else if (rover.instructions === 'L'){
         return turnLeft(rover.direction);
-    }
-    if (!'LRM'.includes(rover.instructions)) {
-        throw new TypeError(`Invalid instruction '${rover.instructions}'`);
     }
 }
 
@@ -42,4 +37,23 @@ function turnRight(direction){
         case 'N': return 'E';
         default: throw new TypeError(`Invalid direction '${direction}'`);
     }
+}
+
+
+function roverInfoIsValid(rover){
+    if (roverPositionIsValid(rover)){
+        throw new TypeError(`Invalid position '${rover.x},${rover.y}' in grid of size 1,1 indexed from zero`);
+    }
+
+    if (roverInstructionIsValid(rover)) {
+        throw new TypeError(`Invalid instruction '${rover.instructions}'`);
+    }
+}
+
+function roverPositionIsValid(rover){
+    return rover.x>0 || rover.y>0;
+}
+
+function roverInstructionIsValid(rover){
+    return !'LRM'.includes(rover.instructions)
 }
