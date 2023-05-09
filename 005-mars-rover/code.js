@@ -3,36 +3,24 @@ export function executeInstructions(rover){
 }
 
 function newDirection(rover){
-    if (rover.instructions === 'R'){
-        return turnRight(rover)
-    }
-    else {
-        return turnLeft(rover)
-    }
+    return ['N','E','S','W'][getNewIndexInNESW(rover)];
 }
 
-function turnLeft(rover){
-    if(rover.direction==='W'){
-        return 'S';
-    }
-    if(rover.direction==='E'){
-        return 'N';
-    }
-    if(rover.direction==='S'){
-        return 'E';
-    }
-    return 'W';
+function getNewIndexInNESW(rover){
+    return mod(
+        indexInNESW(rover.direction)+thisIsTurningClockwise(rover.instructions),
+        4
+    )
 }
 
-function turnRight(rover){
-    if(rover.direction==='W'){
-        return 'N';
-    }
-    if(rover.direction==='E'){
-        return 'S';
-    }
-    if(rover.direction==='S'){
-        return 'W';
-    }
-    return 'E';
+function thisIsTurningClockwise(instructions){
+    return instructions==='R'? 1: -1;
+}
+
+function indexInNESW(direction){
+    return ['N','E','S','W'].indexOf(direction)
+}
+
+function mod(n, m) {
+    return ((n % m) + m) % m;
 }
