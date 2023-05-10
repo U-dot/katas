@@ -13,7 +13,7 @@ Restrictions for this kata:
         - [X] error: invalid movement (outside of grid size)
     - [ ] allow empty instructions
 - [X] apply a sequence of instructions to any rover
-- [ ] apply a sequence of instructions to more than one rover
+- [X] apply a sequence of instructions to more than one rover
 #---------------------------> Notes
 
 - rectangular grid

@@ -562,8 +562,8 @@ describe("Given a 2x2 plateau with a sole rover with more than one instruction i
     });
 });
 
-describe("Given a 2x2 plateau with two rovers in", () => {
-    describe("0,0 facing west and 1,1 facing south", () => {
+describe("Given a 5x5 plateau ", () => {
+    describe("with two rovers in 0,0 facing west and 1,1 facing south", () => {
         describe("When the first is instructed to turn right twice and move forward and the second is ordered to turn right", () => {
             it("They are in 2,0 facing east and 1,1 facing south", () => {
                 executeInstructionsForList([
@@ -591,6 +591,48 @@ describe("Given a 2x2 plateau with two rovers in", () => {
                 expect(console.log).toBeCalledWith("1 0 E\n");
                 expect(console.log).toBeCalledWith("1 1 W\n");
                 expect(console.log).toBeCalledTimes(2);
+            });
+        });
+    });
+    describe("with three rovers in 3,3 facing north, 0,1 facing west and 1,1 facing south", () => {
+        describe("When the first is instructed to turn right twice and move forward and the second and third are ordered to turn right", () => {
+            it("They are in 3,2 facing south, 0,1 facing north and 1,1 facing south", () => {
+                executeInstructionsForList([
+                    {
+                        x: 3,
+                        y: 3,
+                        direction: 'N',
+                        instructions: 'RRM',
+                        plateau: {
+                            width: 5,
+                            height: 5,
+                        }
+                    },
+                    {
+                        x: 0,
+                        y: 1,
+                        direction: 'W',
+                        instructions: 'R',
+                        plateau: {
+                            width: 5,
+                            height: 5,
+                        }
+                    },
+                    {
+                        x: 1,
+                        y: 1,
+                        direction: 'S',
+                        instructions: 'R',
+                        plateau: {
+                            width: 5,
+                            height: 5,
+                        }
+                    }
+                ]);
+                expect(console.log).toBeCalledWith("3 2 S\n");
+                expect(console.log).toBeCalledWith("0 1 N\n");
+                expect(console.log).toBeCalledWith("1 1 W\n");
+                expect(console.log).toBeCalledTimes(3);
             });
         });
     });

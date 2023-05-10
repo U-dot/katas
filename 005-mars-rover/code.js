@@ -1,7 +1,8 @@
 export function executeInstructionsForList(rovers){
-
     executeInstructions(rovers[0]);
-    executeInstructions(rovers[1]);
+    if (rovers[1]){
+        executeInstructionsForList(rovers.slice(1,rovers.length));
+    }
 }
 
 export function executeInstructions(rover){
