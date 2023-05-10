@@ -1,3 +1,9 @@
+export function executeInstructionsForList(rovers){
+
+    executeInstructions(rovers[0]);
+    executeInstructions(rovers[1]);
+}
+
 export function executeInstructions(rover){
     roverInfoIsValid(rover);
     if (rover.instructions.length===1)
@@ -14,7 +20,6 @@ export function executeInstructions(rover){
             }
         });
     }
-
 }
 
 function newXPosition(rover){

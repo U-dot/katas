@@ -1,4 +1,4 @@
-import { executeInstructions } from "./code";
+import { executeInstructions, executeInstructionsForList } from "./code";
 
 beforeAll(() => {
     jest.spyOn(console,"log");
@@ -557,6 +557,40 @@ describe("Given a 2x2 plateau with a sole rover with more than one instruction i
                     });
                 }).toThrow(`Cannot move outside of plateau boundaries`);
                 expect(console.log).toBeCalledTimes(0);
+            });
+        });
+    });
+});
+
+describe("Given a 2x2 plateau with two rovers in", () => {
+    describe("0,0 facing west and 1,1 facing south", () => {
+        describe("When the first is instructed to turn right twice and move forward and the second is ordered to turn right", () => {
+            it("They are in 2,0 facing east and 1,1 facing south", () => {
+                executeInstructionsForList([
+                    {
+                        x: 0,
+                        y: 0,
+                        direction: 'W',
+                        instructions: 'RRM',
+                        plateau: {
+                            width: 2,
+                            height: 2,
+                        }
+                    },
+                    {
+                        x: 1,
+                        y: 1,
+                        direction: 'S',
+                        instructions: 'R',
+                        plateau: {
+                            width: 2,
+                            height: 2,
+                        }
+                    }
+                ]);
+                expect(console.log).toBeCalledWith("1 0 E\n");
+                expect(console.log).toBeCalledWith("1 1 W\n");
+                expect(console.log).toBeCalledTimes(2);
             });
         });
     });
