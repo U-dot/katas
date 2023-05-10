@@ -12,7 +12,7 @@ afterAll(() => {
     jest.restoreAllMocks();
 })
 
-describe("Given a 0x0 plateau with a sole rover in", () => {
+describe("Given a 0x0 plateau with a sole rover with one instruction in", () => {
     describe("0,0", () => {
         describe("facing north", () => {
             describe("When instructed to turn left", () => {
@@ -150,7 +150,7 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
                 });
             });
             describe("When given a invalid instruction 'X'", () => {
-                it("It throws an error", () => {
+                it("It throws a 'Invalid instruction' error", () => {
                     expect(() => {
                         executeInstructions({
                             x: 0,
@@ -167,7 +167,7 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
                 });
             });
             describe("When given a invalid instruction '3'", () => {
-                it("It throws an error", () => {
+                it("It throws a 'Invalid instruction' error", () => {
                     expect(() => {
                         executeInstructions({
                             x: 0,
@@ -186,7 +186,7 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
         });
         describe("facing an invalid direction 'T'", () => {
             describe("When instructed to turn left", () => {
-                it("It throws an error", () => {
+                it("It throws a 'Invalid direction' error", () => {
                     expect(() => {
                         executeInstructions({
                             x: 0,
@@ -203,7 +203,7 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
                 });
             });
             describe("When instructed to turn right", () => {
-                it("It throws an error", () => {
+                it("It throws a 'Invalid direction' error", () => {
                     expect(() => {
                         executeInstructions({
                             x: 0,
@@ -223,7 +223,7 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
     });
     describe("1,0 facing south", () => {
         describe("When instructed to turn left", () => {
-            it("It throws an error", () => {
+            it("It throws a 'Invalid position' error", () => {
                 expect(() => {
                     executeInstructions({
                         x: 1,
@@ -242,7 +242,7 @@ describe("Given a 0x0 plateau with a sole rover in", () => {
     });
 });
 
-describe("Given a 2x2 plateau with a sole rover in", () => {
+describe("Given a 2x2 plateau with a sole rover with one instruction in", () => {
     describe("0,0 ", () => {
         describe("facing west", () => {
             describe("When instructed to move forward", () => {
@@ -434,7 +434,7 @@ describe("Given a 2x2 plateau with a sole rover in", () => {
         });
         describe("facing east", () => {
             describe("When instructed to move forward", () => {
-                it("It throws 'Cannot move outside of plateau boundaries' error", () => {
+                it("It throws a 'Cannot move outside of plateau boundaries' error", () => {
                     expect(() => {
                         executeInstructions({
                             x: 2,
@@ -453,7 +453,7 @@ describe("Given a 2x2 plateau with a sole rover in", () => {
         });
         describe("facing north", () => {
             describe("When instructed to move forward", () => {
-                it("It throws 'Cannot move outside of plateau boundaries' error", () => {
+                it("It throws a 'Cannot move outside of plateau boundaries' error", () => {
                     expect(() => {
                         executeInstructions({
                             x: 2,
@@ -468,6 +468,95 @@ describe("Given a 2x2 plateau with a sole rover in", () => {
                     }).toThrow(`Cannot move outside of plateau boundaries`);
                     expect(console.log).toBeCalledTimes(0);
                 });
+            });
+        });
+    });
+});
+
+describe("Given a 2x2 plateau with a sole rover with more than one instruction in", () => {
+    describe("1,1 facing west", () => {
+        describe("When instructed to move forward and turn right", () => {
+            it("It is in 0,1 looking to the north", () => {
+                executeInstructions({
+                    x: 1,
+                    y: 1,
+                    direction: 'W',
+                    instructions: 'MR',
+                    plateau: {
+                        width: 2,
+                        height: 2,
+                    }
+                });
+                expect(console.log).toBeCalledWith("0 1 N\n");
+                expect(console.log).toBeCalledTimes(1);
+            });
+        });
+        describe("When instructed to turn right and move forward", () => {
+            it("It is in 0,1 looking to the north", () => {
+                executeInstructions({
+                    x: 1,
+                    y: 1,
+                    direction: 'W',
+                    instructions: 'RM',
+                    plateau: {
+                        width: 2,
+                        height: 2,
+                    }
+                });
+                expect(console.log).toBeCalledWith("1 2 N\n");
+                expect(console.log).toBeCalledTimes(1);
+            });
+        });
+        describe("When instructed to turn left twice and move forward", () => {
+            it("It is in 0,1 looking to the north", () => {
+                executeInstructions({
+                    x: 1,
+                    y: 1,
+                    direction: 'W',
+                    instructions: 'LLM',
+                    plateau: {
+                        width: 2,
+                        height: 2,
+                    }
+                });
+                expect(console.log).toBeCalledWith("2 1 E\n");
+                expect(console.log).toBeCalledTimes(1);
+            });
+        });
+        describe("When instructed to turn right and move forward twice", () => {
+            it("It throws a 'Cannot move outside of plateau boundaries' error", () => {
+                expect(() => {
+                    executeInstructions({
+                        x: 1,
+                        y: 1,
+                        direction: 'W',
+                        instructions: 'RMM',
+                        plateau: {
+                            width: 2,
+                            height: 2,
+                        }
+                    });
+                }).toThrow(`Cannot move outside of plateau boundaries`);
+                expect(console.log).toBeCalledTimes(0);
+            });
+        });
+    });
+    describe("0,0 facing west", () => {
+        describe("When instructed to move forward, turn right twice and move forward", () => {
+            it("It throws a 'Cannot move outside of plateau boundaries' error", () => {
+                expect(() => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'W',
+                        instructions: 'MRRM',
+                        plateau: {
+                            width: 2,
+                            height: 2,
+                        }
+                    });
+                }).toThrow(`Cannot move outside of plateau boundaries`);
+                expect(console.log).toBeCalledTimes(0);
             });
         });
     });

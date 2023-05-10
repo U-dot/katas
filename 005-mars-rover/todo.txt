@@ -11,7 +11,7 @@ Restrictions for this kata:
         - [ ] in between func
     - [x] movements
         - [X] error: invalid movement (outside of grid size)
-- [ ] apply a sequence of instructions to any rover
+- [X] apply a sequence of instructions to any rover
 - [ ] apply a sequence of instructions to more than one rover
 #---------------------------> Notes
 

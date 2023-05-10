@@ -1,10 +1,24 @@
 export function executeInstructions(rover){
     roverInfoIsValid(rover);
-    console.log(`${newXPosition(rover)} ${newYPosition(rover)} ${newDirection(rover)}\n`);
+    if (rover.instructions.length===1)
+        console.log(`${newXPosition(rover)} ${newYPosition(rover)} ${newDirection(rover)}\n`);
+    else {
+        executeInstructions({
+            x: newXPosition(rover),
+            y: newYPosition(rover),
+            direction: newDirection(rover),
+            instructions: rover.instructions.slice(1),
+            plateau: {
+                width: rover.plateau.width,
+                height: rover.plateau.height,
+            }
+        });
+    }
+
 }
 
 function newXPosition(rover){
-    if (rover.instructions === 'M'){
+    if (firstChar(rover.instructions) === 'M'){
         switch(rover.direction){
             case 'W': return rover.x-1
             case 'N': return rover.x;
@@ -16,7 +30,7 @@ function newXPosition(rover){
 }
 
 function newYPosition(rover){
-    if (rover.instructions === 'M'){
+    if (firstChar(rover.instructions) === 'M'){
         switch(rover.direction){
             case 'W': return rover.y;
             case 'N': return rover.y+1;
@@ -28,10 +42,10 @@ function newYPosition(rover){
 }
 
 function newDirection(rover){
-    if (rover.instructions === 'R'){
+    if (firstChar(rover.instructions) === 'R'){
         return turnRight(rover.direction);
     }
-    else if (rover.instructions === 'L'){
+    else if (firstChar(rover.instructions) === 'L'){
         return turnLeft(rover.direction);
     }
     return rover.direction;
@@ -64,10 +78,10 @@ function roverInfoIsValid(rover){
     }
 
     if (!roverInstructionIsValid(rover)) {
-        throw new TypeError(`Invalid instruction '${rover.instructions}'`);
+        throw new TypeError(`Invalid instruction '${firstChar(rover.instructions)}'`);
     }
 
-    if (rover.instructions === 'M'){
+    if (firstChar(rover.instructions) === 'M'){
         if (
             valueIsNonNegativeSmallerThanMax(newXPosition(rover), rover.plateau.width)
             && valueIsNonNegativeSmallerThanMax(newYPosition(rover), rover.plateau.height)
@@ -86,5 +100,9 @@ function valueIsNonNegativeSmallerThanMax(value,max){
 }
 
 function roverInstructionIsValid(rover){
-    return 'LRM'.includes(rover.instructions)
+    return 'LRM'.includes(firstChar(rover.instructions))
+}
+
+function firstChar(string){
+    return string[0];
 }
