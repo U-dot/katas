@@ -14,6 +14,7 @@ Restrictions for this kata:
     - [X] allow empty instructions
 - [X] apply a sequence of instructions to any rover
 - [X] apply a sequence of instructions to more than one rover
+- [ ] only check correct position once
 #---------------------------> Notes
 
 - rectangular grid

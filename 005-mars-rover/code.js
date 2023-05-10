@@ -8,7 +8,7 @@ export function executeInstructionsForList(rovers){
 export function executeInstructions(rover){
     if (rover.instructions.length===0) {
         console.log(`${rover.x} ${rover.y} ${rover.direction}\n`);
-        return
+        return;
     }
     roverInfoIsValid(rover);
     executeInstructions({
@@ -20,7 +20,7 @@ export function executeInstructions(rover){
                 width: rover.plateau.width,
                 height: rover.plateau.height,
             }
-});
+    });
 }
 
 function newXPosition(rover){
@@ -92,7 +92,7 @@ function roverInfoIsValid(rover){
             && valueIsNonNegativeSmallerThanMax(newYPosition(rover), rover.plateau.height)
         )
             return `${newXPosition(rover)} ${newYPosition(rover)}`;
-        throw new TypeError("Cannot move outside of plateau boundaries")
+        throw new TypeError("Cannot move outside of plateau boundaries");
     }
 }
 
@@ -105,7 +105,7 @@ function valueIsNonNegativeSmallerThanMax(value,max){
 }
 
 function roverInstructionIsValid(rover){
-    return 'LRM'.includes(firstChar(rover.instructions))
+    return 'LRM'.includes(firstChar(rover.instructions));
 }
 
 function firstChar(string){
