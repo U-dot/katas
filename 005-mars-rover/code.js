@@ -11,12 +11,7 @@ export function executeInstructions(rover){
         return
     }
     roverInfoIsValid(rover);
-    if (rover.instructions.length===1) {
-        console.log(`${newXPosition(rover)} ${newYPosition(rover)} ${newDirection(rover)}\n`);
-        return;
-    }
-    else {
-        executeInstructions({
+    executeInstructions({
             x: newXPosition(rover),
             y: newYPosition(rover),
             direction: newDirection(rover),
@@ -25,8 +20,7 @@ export function executeInstructions(rover){
                 width: rover.plateau.width,
                 height: rover.plateau.height,
             }
-        });
-    }
+});
 }
 
 function newXPosition(rover){
@@ -82,7 +76,6 @@ function turnRight(direction){
         default: throw new TypeError(`Invalid direction '${direction}'`);
     }
 }
-
 
 function roverInfoIsValid(rover){
     if (!roverPositionIsValid(rover)){
