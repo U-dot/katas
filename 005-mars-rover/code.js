@@ -79,7 +79,7 @@ function turnRight(direction){
 
 function roverInfoIsValid(rover){
     if (!roverPositionIsValid(rover)){
-        throw new TypeError(`Invalid position '${rover.x},${rover.y}' in grid of size 1,1 indexed from zero`);
+        throw new TypeError(`Invalid position '${rover.x},${rover.y}' in grid of size ${rover.plateau.width},${rover.plateau.height} indexed from zero`);
     }
 
     if (!roverInstructionIsValid(rover)) {

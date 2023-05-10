@@ -251,7 +251,7 @@ describe("Given a 0x0 plateau with a sole rover with one instruction in", () => 
                             height: 0,
                         }
                     })
-                }).toThrow(`Invalid position '1,0' in grid of size 1,1 indexed from zero`);
+                }).toThrow(`Invalid position '1,0' in grid of size 0,0 indexed from zero`);
                 expect(console.log).toBeCalledTimes(0);
             });
         });
