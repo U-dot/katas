@@ -6,9 +6,15 @@ export function executeInstructionsForList(rovers){
 }
 
 export function executeInstructions(rover){
+    if (rover.instructions.length===0) {
+        console.log(`${rover.x} ${rover.y} ${rover.direction}\n`);
+        return
+    }
     roverInfoIsValid(rover);
-    if (rover.instructions.length===1)
+    if (rover.instructions.length===1) {
         console.log(`${newXPosition(rover)} ${newYPosition(rover)} ${newDirection(rover)}\n`);
+        return;
+    }
     else {
         executeInstructions({
             x: newXPosition(rover),

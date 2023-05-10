@@ -149,6 +149,22 @@ describe("Given a 0x0 plateau with a sole rover with one instruction in", () => 
                     expect(console.log).toBeCalledTimes(1);
                 });
             });
+            describe("When instructed to stay", () => {
+                it("It stays still", () => {
+                    executeInstructions({
+                        x: 0,
+                        y: 0,
+                        direction: 'S',
+                        instructions: '',
+                        plateau: {
+                            width: 0,
+                            height: 0,
+                        }
+                    });
+                    expect(console.log).toBeCalledWith("0 0 S\n");
+                    expect(console.log).toBeCalledTimes(1);
+                });
+            });
             describe("When given a invalid instruction 'X'", () => {
                 it("It throws a 'Invalid instruction' error", () => {
                     expect(() => {
